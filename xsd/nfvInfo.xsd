@@ -183,7 +183,7 @@
   <xs:element name="avg_throughput" type="xs:float" />
   <xs:element name="avg_latency" type="xs:integer" />
   
-  <!-- Eventuale Pattern da utilizzare per specializzare l'attributo nome (ID) di alcuni elementi -->
+  <!-- Pattern da utilizzare per specializzare l'attributo nome (ID) di alcuni elementi -->
   <xs:simpleType name="nameType">
     <xs:restriction base="xs:string">
       <xs:pattern value="[A-Za-z][A-Za-z0-9]*" />
