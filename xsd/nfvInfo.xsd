@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://tempuri.org/nfvInfo" elementFormDefault="qualified" targetNamespace="http://tempuri.org/nfvInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+  <xs:element name="nfv">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="catalog" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="nffg" />
+        <xs:element ref="in" />
+      </xs:sequence>
+    </xs:complexType>
+    <xs:key name="nffgKey">
+      <xs:selector xpath="nffg" />
+      <xs:field xpath="@name" />
+    </xs:key>
+  </xs:element>
+  
+  <xs:element name="catalog">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="vnf_type" />
+      </xs:sequence>
+    </xs:complexType>
+    <xs:key name="vnfTypeKey">
+      <xs:selector xpath="vnf_type" />
+      <xs:field xpath="@name" />
+    </xs:key>
+  </xs:element>
+  
+  <xs:element name="vnf_type">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="req_memory" />
+        <xs:element ref="req_storage" />
+      </xs:sequence>
+      <xs:attribute name="name" type="nameType" use="required" />
+      <xs:attribute name="functional_type" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:enumeration value="CACHE" />
+            <xs:enumeration value="DPI" />
+            <xs:enumeration value="FW" />
+            <xs:enumeration value="MAIL_CLIENT" />
+            <xs:enumeration value="MAIL_SERVER" />
+            <xs:enumeration value="NAT" />
+            <xs:enumeration value="SPAM" />
+            <xs:enumeration value="VPN" />
+            <xs:enumeration value="WEB_CLIENT" />
+            <xs:enumeration value="WEB_SERVER" />
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="req_memory" type="xs:integer" />
+  <xs:element name="req_storage" type="xs:integer" />
+  
+  <xs:element name="nffg">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="node" />
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="link" />
+      </xs:sequence>
+      <xs:attribute name="name" type="nameType" use="required" />
+      <xs:attribute name="deploy_time" type="xs:dateTime" use="required" />
+    </xs:complexType>
+    <xs:key name="nodeKey">
+      <xs:selector xpath="node" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:key name="linkKey">
+      <xs:selector xpath="link" />
+      <xs:field xpath="@name" />
+    </xs:key>
+  </xs:element>
+  
+  <xs:element name="node">
+    <xs:complexType>
+      <xs:attribute name="name" type="nameType" use="required" />
+      <xs:attribute name="vnf_type" type="nameType" use="required" />
+      <xs:attribute name="host" type="nameType" use="required" />
+    </xs:complexType>
+    <xs:keyref name="vnfType" refer="vnfTypeKey">
+      <xs:selector xpath="node" />
+      <xs:field xpath="@vnf_type" />
+    </xs:keyref>
+    <xs:keyref name="host" refer="hostKey">
+      <xs:selector xpath="node" />
+      <xs:field xpath="@host" />
+    </xs:keyref>
+  </xs:element>
+  
+  <xs:element name="link">
+    <xs:complexType>
+      <xs:sequence minOccurs="0" maxOccurs="1">
+        <xs:element ref="min_throughput" />
+        <xs:element ref="max_latency" />
+      </xs:sequence>
+      <xs:attribute name="name" type="nameType" use="required" />
+      <xs:attribute name="src_node" type="nameType" use="required" />
+      <xs:attribute name="dst_node" type="nameType" use="required" />
+    </xs:complexType>
+    <xs:keyref name="srcNode" refer="nodeKey">
+      <xs:selector xpath="link" />
+      <xs:field xpath="@src_node" />
+    </xs:keyref>
+    <xs:keyref name="dstNode" refer="nodeKey">
+      <xs:selector xpath="link" />
+      <xs:field xpath="@dst_node" />
+    </xs:keyref>
+  </xs:element>
+  
+  <xs:element name="min_throughput" type="xs:float" />
+  <xs:element name="max_latency" type="xs:integer" />
+  
+  <xs:element name="in">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="hosts" />
+        <xs:element ref="connections" />
+      </xs:sequence>
+    </xs:complexType>
+    <xs:key name="hostKey">
+      <xs:selector xpath="host" />
+      <xs:field xpath="@name" />
+    </xs:key>
+  </xs:element>
+  
+  <xs:element name="hosts">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="host" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="host">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="max_vnfs" />
+        <xs:element ref="memory" />
+        <xs:element ref="storage" />
+      </xs:sequence>
+      <xs:attribute name="name" type="nameType" use="required" />
+      <!-- Ridondanza evetualmente da eliminare
+      <xs:attribute name="nodes" type="xs:IDREFS" />
+      -->
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="max_vnfs" type="xs:integer" />
+  <xs:element name="memory" type="xs:integer" />
+  <xs:element name="storage" type="xs:integer" />
+  
+  <xs:element name="connections">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="connection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="connection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="avg_throughput" />
+        <xs:element ref="avg_latency" />
+      </xs:sequence>
+      <xs:attribute name="host1" type="nameType" use="required" />
+      <xs:attribute name="host2" type="nameType" use="required" />
+    </xs:complexType>
+    <xs:keyref name="host1" refer="hostKey">
+      <xs:selector xpath="connection" />
+      <xs:field xpath="@host1" />
+    </xs:keyref>
+    <xs:keyref name="host2" refer="hostKey">
+      <xs:selector xpath="connection" />
+      <xs:field xpath="@host2" />
+    </xs:keyref>
+  </xs:element>
+  
+  <xs:element name="avg_throughput" type="xs:float" />
+  <xs:element name="avg_latency" type="xs:integer" />
+  
+  <!-- Eventuale Pattern da utilizzare per specializzare l'attributo nome (ID) di alcuni elementi -->
+  <xs:simpleType name="nameType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z][A-Za-z0-9]*" />
+    </xs:restriction>
+  </xs:simpleType>  
+  
+  <!-- nffgKey e linkKey possono essere implementati come unique -->
+  
+</xs:schema>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
