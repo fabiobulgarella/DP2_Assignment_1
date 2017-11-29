@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 import it.polito.dp2.NFV.*;
-
+import it.polito.dp2.NFV.sol1.jaxb.*;
 
 public class NfvInfoSerializer
 {
@@ -15,7 +15,7 @@ public class NfvInfoSerializer
 
 	
 	/**
-	 * Default constructror
+	 * Default constructor
 	 * @throws NfvReaderException 
 	 */
 	public NfvInfoSerializer() throws NfvReaderException {
@@ -43,6 +43,7 @@ public class NfvInfoSerializer
 			e.printStackTrace();
 			System.exit(1);
 		}
+		
 	}
 
 
