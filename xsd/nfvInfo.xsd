@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://tempuri.org/nfvInfo" elementFormDefault="qualified" targetNamespace="http://tempuri.org/nfvInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns="http://www.example.org/nfvInfo" elementFormDefault="qualified" targetNamespace="http://www.example.org.org/nfvInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
   <xs:element name="nfv">
     <xs:complexType>
@@ -53,8 +53,8 @@
     </xs:complexType>
   </xs:element>
   
-  <xs:element name="req_memory" type="xs:integer" />
-  <xs:element name="req_storage" type="xs:integer" />
+  <xs:element name="req_memory" type="xs:nonNegativeInteger" />
+  <xs:element name="req_storage" type="xs:nonNegativeInteger" />
   
   <xs:element name="nffg">
     <xs:complexType>
@@ -111,8 +111,8 @@
     </xs:keyref>
   </xs:element>
   
-  <xs:element name="min_throughput" type="xs:float" />
-  <xs:element name="max_latency" type="xs:integer" />
+  <xs:element name="min_throughput" type="nonNegativeFloat" />
+  <xs:element name="max_latency" type="xs:nonNegativeInteger" />
   
   <xs:element name="in">
     <xs:complexType>
@@ -149,9 +149,9 @@
     </xs:complexType>
   </xs:element>
   
-  <xs:element name="max_vnfs" type="xs:integer" />
-  <xs:element name="memory" type="xs:integer" />
-  <xs:element name="storage" type="xs:integer" />
+  <xs:element name="max_vnfs" type="xs:nonNegativeInteger" />
+  <xs:element name="memory" type="xs:nonNegativeInteger" />
+  <xs:element name="storage" type="xs:nonNegativeInteger" />
   
   <xs:element name="connections">
     <xs:complexType>
@@ -180,15 +180,21 @@
     </xs:keyref>
   </xs:element>
   
-  <xs:element name="avg_throughput" type="xs:float" />
-  <xs:element name="avg_latency" type="xs:integer" />
+  <xs:element name="avg_throughput" type="nonNegativeFloat" />
+  <xs:element name="avg_latency" type="xs:nonNegativeInteger" />
   
   <!-- Pattern da utilizzare per specializzare l'attributo nome (ID) di alcuni elementi -->
   <xs:simpleType name="nameType">
     <xs:restriction base="xs:string">
       <xs:pattern value="[A-Za-z][A-Za-z0-9]*" />
     </xs:restriction>
-  </xs:simpleType>  
+  </xs:simpleType>
+  
+  <xs:simpleType name="nonNegativeFloat">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0" />
+    </xs:restriction>
+  </xs:simpleType>
   
   <!-- nffgKey e linkKey possono essere implementati come unique -->
   
