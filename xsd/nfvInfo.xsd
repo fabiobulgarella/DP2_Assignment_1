@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://www.example.org/nfvInfo" elementFormDefault="qualified" targetNamespace="http://www.example.org.org/nfvInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns="http://www.example.org/nfvInfo" elementFormDefault="qualified" targetNamespace="http://www.example.org/nfvInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   
   <xs:element name="nfv">
     <xs:complexType>
@@ -143,9 +143,7 @@
         <xs:element ref="storage" />
       </xs:sequence>
       <xs:attribute name="name" type="nameType" use="required" />
-      <!-- Ridondanza evetualmente da eliminare
       <xs:attribute name="nodes" type="xs:IDREFS" />
-      -->
     </xs:complexType>
   </xs:element>
   

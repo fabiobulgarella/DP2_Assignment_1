@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.28 alle 10:20:38 PM CET 
+// Generato il: 2017.11.29 alle 12:37:28 PM CET 
 //
 
 
@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -27,11 +28,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://tempuri.org/nfvInfo}avg_throughput"/>
- *         &lt;element ref="{http://tempuri.org/nfvInfo}avg_latency"/>
+ *         &lt;element ref="{http://www.example.org/nfvInfo}avg_throughput"/>
+ *         &lt;element ref="{http://www.example.org/nfvInfo}avg_latency"/>
  *       &lt;/sequence>
- *       &lt;attribute name="host1" use="required" type="{http://tempuri.org/nfvInfo}nameType" />
- *       &lt;attribute name="host2" use="required" type="{http://tempuri.org/nfvInfo}nameType" />
+ *       &lt;attribute name="host1" use="required" type="{http://www.example.org/nfvInfo}nameType" />
+ *       &lt;attribute name="host2" use="required" type="{http://www.example.org/nfvInfo}nameType" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -50,6 +51,7 @@ public class Connection {
     @XmlElement(name = "avg_throughput")
     protected float avgThroughput;
     @XmlElement(name = "avg_latency", required = true)
+    @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger avgLatency;
     @XmlAttribute(name = "host1", required = true)
     protected String host1;

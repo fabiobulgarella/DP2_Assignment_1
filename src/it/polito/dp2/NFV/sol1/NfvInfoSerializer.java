@@ -1,9 +1,15 @@
 package it.polito.dp2.NFV.sol1;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Set;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import it.polito.dp2.NFV.*;
 import it.polito.dp2.NFV.sol1.jaxb.*;
@@ -37,15 +43,47 @@ public class NfvInfoSerializer
 		NfvInfoSerializer wf;
 		try {
 			wf = new NfvInfoSerializer();
-			wf.printAll();
+			// wf.printAll();
+			wf.startMarshall();
 		} catch (NfvReaderException e) {
 			System.err.println("Could not instantiate data generator.");
 			e.printStackTrace();
 			System.exit(1);
+		}		
+	}
+	
+
+	//
+	private void startMarshall()
+	{	
+		try 
+		{
+			// create a JAXBContext capable of handling the generated classes
+            JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
+            
+            // create JAXBElement Root element
+            JAXBElement<Nfv> nfv = (JAXBElement<Nfv>) new Nfv();
+            
+            // create a Marshaller and marshal to std out
+            Marshaller m = jc.createMarshaller();
+            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            m.marshal(nfv, System.out);
+            
+		}
+		catch( JAXBException je ) {
+			System.out.println("Error while unmarshalling or marshalling");
+			je.printStackTrace();
+			System.exit(1);
+		} catch( IOException ioe ) {
+			ioe.printStackTrace();
+			System.exit(1);
+		} catch( ClassCastException cce) {
+			System.out.println("Wrong data type found in XML document");
+			cce.printStackTrace();
+			System.exit(1);
 		}
 		
 	}
-
 
 	public void printAll() {
 		printLine(' ');

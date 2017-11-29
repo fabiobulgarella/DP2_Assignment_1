@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.28 alle 10:20:38 PM CET 
+// Generato il: 2017.11.29 alle 12:37:28 PM CET 
 //
 
 
@@ -32,15 +32,15 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Storage_QNAME = new QName("http://tempuri.org/nfvInfo", "storage");
-    private final static QName _ReqMemory_QNAME = new QName("http://tempuri.org/nfvInfo", "req_memory");
-    private final static QName _ReqStorage_QNAME = new QName("http://tempuri.org/nfvInfo", "req_storage");
-    private final static QName _AvgLatency_QNAME = new QName("http://tempuri.org/nfvInfo", "avg_latency");
-    private final static QName _Memory_QNAME = new QName("http://tempuri.org/nfvInfo", "memory");
-    private final static QName _MaxLatency_QNAME = new QName("http://tempuri.org/nfvInfo", "max_latency");
-    private final static QName _AvgThroughput_QNAME = new QName("http://tempuri.org/nfvInfo", "avg_throughput");
-    private final static QName _MinThroughput_QNAME = new QName("http://tempuri.org/nfvInfo", "min_throughput");
-    private final static QName _MaxVnfs_QNAME = new QName("http://tempuri.org/nfvInfo", "max_vnfs");
+    private final static QName _ReqMemory_QNAME = new QName("http://www.example.org/nfvInfo", "req_memory");
+    private final static QName _Storage_QNAME = new QName("http://www.example.org/nfvInfo", "storage");
+    private final static QName _ReqStorage_QNAME = new QName("http://www.example.org/nfvInfo", "req_storage");
+    private final static QName _AvgThroughput_QNAME = new QName("http://www.example.org/nfvInfo", "avg_throughput");
+    private final static QName _Memory_QNAME = new QName("http://www.example.org/nfvInfo", "memory");
+    private final static QName _MaxLatency_QNAME = new QName("http://www.example.org/nfvInfo", "max_latency");
+    private final static QName _AvgLatency_QNAME = new QName("http://www.example.org/nfvInfo", "avg_latency");
+    private final static QName _MaxVnfs_QNAME = new QName("http://www.example.org/nfvInfo", "max_vnfs");
+    private final static QName _MinThroughput_QNAME = new QName("http://www.example.org/nfvInfo", "min_throughput");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: it.polito.dp2.NFV.sol1.jaxb
@@ -141,16 +141,7 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "storage")
-    public JAXBElement<BigInteger> createStorage(BigInteger value) {
-        return new JAXBElement<BigInteger>(_Storage_QNAME, BigInteger.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "req_memory")
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "req_memory")
     public JAXBElement<BigInteger> createReqMemory(BigInteger value) {
         return new JAXBElement<BigInteger>(_ReqMemory_QNAME, BigInteger.class, null, value);
     }
@@ -159,25 +150,34 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "req_storage")
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "storage")
+    public JAXBElement<BigInteger> createStorage(BigInteger value) {
+        return new JAXBElement<BigInteger>(_Storage_QNAME, BigInteger.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "req_storage")
     public JAXBElement<BigInteger> createReqStorage(BigInteger value) {
         return new JAXBElement<BigInteger>(_ReqStorage_QNAME, BigInteger.class, null, value);
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Float }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "avg_latency")
-    public JAXBElement<BigInteger> createAvgLatency(BigInteger value) {
-        return new JAXBElement<BigInteger>(_AvgLatency_QNAME, BigInteger.class, null, value);
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "avg_throughput")
+    public JAXBElement<Float> createAvgThroughput(Float value) {
+        return new JAXBElement<Float>(_AvgThroughput_QNAME, Float.class, null, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "memory")
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "memory")
     public JAXBElement<BigInteger> createMemory(BigInteger value) {
         return new JAXBElement<BigInteger>(_Memory_QNAME, BigInteger.class, null, value);
     }
@@ -186,36 +186,36 @@ public class ObjectFactory {
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "max_latency")
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "max_latency")
     public JAXBElement<BigInteger> createMaxLatency(BigInteger value) {
         return new JAXBElement<BigInteger>(_MaxLatency_QNAME, BigInteger.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Float }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "avg_throughput")
-    public JAXBElement<Float> createAvgThroughput(Float value) {
-        return new JAXBElement<Float>(_AvgThroughput_QNAME, Float.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link Float }{@code >}}
-     * 
-     */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "min_throughput")
-    public JAXBElement<Float> createMinThroughput(Float value) {
-        return new JAXBElement<Float>(_MinThroughput_QNAME, Float.class, null, value);
     }
 
     /**
      * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://tempuri.org/nfvInfo", name = "max_vnfs")
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "avg_latency")
+    public JAXBElement<BigInteger> createAvgLatency(BigInteger value) {
+        return new JAXBElement<BigInteger>(_AvgLatency_QNAME, BigInteger.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BigInteger }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "max_vnfs")
     public JAXBElement<BigInteger> createMaxVnfs(BigInteger value) {
         return new JAXBElement<BigInteger>(_MaxVnfs_QNAME, BigInteger.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Float }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "min_throughput")
+    public JAXBElement<Float> createMinThroughput(Float value) {
+        return new JAXBElement<Float>(_MinThroughput_QNAME, Float.class, null, value);
     }
 
 }
