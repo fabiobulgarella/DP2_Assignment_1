@@ -10,23 +10,22 @@
   
   <xs:complexType name="nfvType">
     <xs:sequence>
-      <xs:element ref="catalog" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="nffg" />
-      <xs:element ref="in" />
+      <xs:element name="catalog" type="catalogType">
+        <xs:key name="vnfTypeKey">
+          <xs:selector xpath="vnf_type" />
+          <xs:field xpath="@name" />
+        </xs:key>
+      </xs:element>
+      <xs:element name="nffg" type="nffgType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="in" type="inType" />
     </xs:sequence>
   </xs:complexType>
   
-  <xs:element name="catalog">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="1" maxOccurs="unbounded" ref="vnf_type" />
-      </xs:sequence>
-    </xs:complexType>
-    <xs:key name="vnfTypeKey">
-      <xs:selector xpath="vnf_type" />
-      <xs:field xpath="@name" />
-    </xs:key>
-  </xs:element>
+  <xs:complexType name="catalogType">
+    <xs:sequence>
+      <xs:element name="vnf_type" type="vnf_typeType" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
   
   <xs:element name="vnf_type">
     <xs:complexType>
