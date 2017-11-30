@@ -4,6 +4,7 @@
         <vnf name="Oe2gjUIjZxT8CWP" functionalType="VPN" reqMemory="1825309561" reqStorage="5265587" />
         <vnf name="aass667" functionalType="DPI" reqMemory="1825309561" reqStorage="5265587" />
         <vnf name="A12dsfsfsf" functionalType="FW" reqMemory="1825309561" reqStorage="5265587" />
+        <vnf name="Gttyhs" functionalType="FW" reqMemory="1825309561" reqStorage="5265587" />
     </catalog>
     <nffgs>
         <nffg name="RL683mQC3RbX" deployTime="1994-02-23T23:55:38.53">
@@ -48,7 +49,7 @@
         </host>
     </hosts>
     <connections>
-        <connection host1="B" host2="Bu" throughput="612438714.03919" latency="5065791" />
+        <connection host1="Ba4" host2="Bu" throughput="612438714.03919" latency="5065791" />
         <connection host1="Ba" host2="Ba4" throughput="612438714.03919" latency="5065791" />
         <connection host1="Ba3" host2="Bu" throughput="612438714.03919" latency="5065791" />
     </connections>

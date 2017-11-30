@@ -2,13 +2,16 @@
 // Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.30 alle 11:16:52 PM CET 
+// Generato il: 2017.12.01 alle 12:11:15 AM CET 
 //
 
 
 package it.polito.dp2.NFV.sol1.jaxb;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -28,6 +31,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _Nfv_QNAME = new QName("http://www.example.org/nfvInfo", "nfv");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: it.polito.dp2.NFV.sol1.jaxb
@@ -37,91 +41,100 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Node }
+     * Create an instance of {@link NfvType }
      * 
      */
-    public Node createNode() {
-        return new Node();
+    public NfvType createNfvType() {
+        return new NfvType();
     }
 
     /**
-     * Create an instance of {@link Link }
+     * Create an instance of {@link CatalogType }
      * 
      */
-    public Link createLink() {
-        return new Link();
+    public CatalogType createCatalogType() {
+        return new CatalogType();
     }
 
     /**
-     * Create an instance of {@link Nffgs }
+     * Create an instance of {@link ConnectionsType }
      * 
      */
-    public Nffgs createNffgs() {
-        return new Nffgs();
+    public ConnectionsType createConnectionsType() {
+        return new ConnectionsType();
     }
 
     /**
-     * Create an instance of {@link Nffg }
+     * Create an instance of {@link NodeType }
      * 
      */
-    public Nffg createNffg() {
-        return new Nffg();
+    public NodeType createNodeType() {
+        return new NodeType();
     }
 
     /**
-     * Create an instance of {@link Catalog }
+     * Create an instance of {@link NffgType }
      * 
      */
-    public Catalog createCatalog() {
-        return new Catalog();
+    public NffgType createNffgType() {
+        return new NffgType();
     }
 
     /**
-     * Create an instance of {@link Vnf }
+     * Create an instance of {@link ConnectionType }
      * 
      */
-    public Vnf createVnf() {
-        return new Vnf();
+    public ConnectionType createConnectionType() {
+        return new ConnectionType();
     }
 
     /**
-     * Create an instance of {@link Hosts }
+     * Create an instance of {@link NffgsType }
      * 
      */
-    public Hosts createHosts() {
-        return new Hosts();
+    public NffgsType createNffgsType() {
+        return new NffgsType();
     }
 
     /**
-     * Create an instance of {@link Host }
+     * Create an instance of {@link HostsType }
      * 
      */
-    public Host createHost() {
-        return new Host();
+    public HostsType createHostsType() {
+        return new HostsType();
     }
 
     /**
-     * Create an instance of {@link Connection }
+     * Create an instance of {@link VnfType }
      * 
      */
-    public Connection createConnection() {
-        return new Connection();
+    public VnfType createVnfType() {
+        return new VnfType();
     }
 
     /**
-     * Create an instance of {@link Connections }
+     * Create an instance of {@link HostType }
      * 
      */
-    public Connections createConnections() {
-        return new Connections();
+    public HostType createHostType() {
+        return new HostType();
     }
 
     /**
-     * Create an instance of {@link Nfv }
+     * Create an instance of {@link LinkType }
      * 
      */
-    public Nfv createNfv() {
-        return new Nfv();
+    public LinkType createLinkType() {
+        return new LinkType();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link NfvType }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://www.example.org/nfvInfo", name = "nfv")
+    public JAXBElement<NfvType> createNfv(NfvType value) {
+        return new JAXBElement<NfvType>(_Nfv_QNAME, NfvType.class, null, value);
     }
 
 }
