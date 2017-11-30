@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -27,7 +26,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.example.org/nfvInfo}vnf" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://www.example.org/nfvInfo}nffg" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -38,41 +37,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "vnf"
+    "nffg"
 })
-@XmlRootElement(name = "catalog")
-public class Catalog {
+@XmlRootElement(name = "nffgs")
+public class Nffgs {
 
-    @XmlElement(required = true)
-    protected List<Vnf> vnf;
+    protected List<Nffg> nffg;
 
     /**
-     * Gets the value of the vnf property.
+     * Gets the value of the nffg property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the vnf property.
+     * This is why there is not a <CODE>set</CODE> method for the nffg property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getVnf().add(newItem);
+     *    getNffg().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Vnf }
+     * {@link Nffg }
      * 
      * 
      */
-    public List<Vnf> getVnf() {
-        if (vnf == null) {
-            vnf = new ArrayList<Vnf>();
+    public List<Nffg> getNffg() {
+        if (nffg == null) {
+            nffg = new ArrayList<Nffg>();
         }
-        return this.vnf;
+        return this.nffg;
     }
 
 }

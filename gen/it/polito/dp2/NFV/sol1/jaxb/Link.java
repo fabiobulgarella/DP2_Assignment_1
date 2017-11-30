@@ -2,19 +2,16 @@
 // Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.29 alle 05:40:22 PM CET 
+// Generato il: 2017.11.30 alle 11:16:52 PM CET 
 //
 
 
 package it.polito.dp2.NFV.sol1.jaxb;
 
-import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -27,13 +24,10 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence minOccurs="0">
- *         &lt;element name="min_throughput" type="{http://www.example.org/nfvInfo}nonNegativeFloat"/>
- *         &lt;element name="max_latency" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
- *       &lt;/sequence>
  *       &lt;attribute name="name" use="required" type="{http://www.example.org/nfvInfo}nameType" />
- *       &lt;attribute name="src_node" use="required" type="{http://www.example.org/nfvInfo}nameType" />
- *       &lt;attribute name="dst_node" use="required" type="{http://www.example.org/nfvInfo}nameType" />
+ *       &lt;attribute name="dstNode" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="minThroughput" type="{http://www.example.org/nfvInfo}nonNegativeFloat" />
+ *       &lt;attribute name="maxLatency" type="{http://www.example.org/nfvInfo}nonNegativeInt" />
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -42,24 +36,66 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "minThroughput",
-    "maxLatency"
-})
+@XmlType(name = "")
 @XmlRootElement(name = "link")
 public class Link {
 
-    @XmlElement(name = "min_throughput")
-    protected Float minThroughput;
-    @XmlElement(name = "max_latency")
-    @XmlSchemaType(name = "nonNegativeInteger")
-    protected BigInteger maxLatency;
     @XmlAttribute(name = "name", required = true)
     protected String name;
-    @XmlAttribute(name = "src_node", required = true)
-    protected String srcNode;
-    @XmlAttribute(name = "dst_node", required = true)
+    @XmlAttribute(name = "dstNode", required = true)
     protected String dstNode;
+    @XmlAttribute(name = "minThroughput")
+    protected Float minThroughput;
+    @XmlAttribute(name = "maxLatency")
+    protected Integer maxLatency;
+
+    /**
+     * Recupera il valore della proprietà name.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Imposta il valore della proprietà name.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà dstNode.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getDstNode() {
+        return dstNode;
+    }
+
+    /**
+     * Imposta il valore della proprietà dstNode.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setDstNode(String value) {
+        this.dstNode = value;
+    }
 
     /**
      * Recupera il valore della proprietà minThroughput.
@@ -90,10 +126,10 @@ public class Link {
      * 
      * @return
      *     possible object is
-     *     {@link BigInteger }
+     *     {@link Integer }
      *     
      */
-    public BigInteger getMaxLatency() {
+    public Integer getMaxLatency() {
         return maxLatency;
     }
 
@@ -102,83 +138,11 @@ public class Link {
      * 
      * @param value
      *     allowed object is
-     *     {@link BigInteger }
+     *     {@link Integer }
      *     
      */
-    public void setMaxLatency(BigInteger value) {
+    public void setMaxLatency(Integer value) {
         this.maxLatency = value;
-    }
-
-    /**
-     * Recupera il valore della proprietà name.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Imposta il valore della proprietà name.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    /**
-     * Recupera il valore della proprietà srcNode.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getSrcNode() {
-        return srcNode;
-    }
-
-    /**
-     * Imposta il valore della proprietà srcNode.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setSrcNode(String value) {
-        this.srcNode = value;
-    }
-
-    /**
-     * Recupera il valore della proprietà dstNode.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getDstNode() {
-        return dstNode;
-    }
-
-    /**
-     * Imposta il valore della proprietà dstNode.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setDstNode(String value) {
-        this.dstNode = value;
     }
 
 }

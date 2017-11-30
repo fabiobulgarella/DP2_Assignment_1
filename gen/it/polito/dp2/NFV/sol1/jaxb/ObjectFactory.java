@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.29 alle 05:40:22 PM CET 
+// Generato il: 2017.11.30 alle 11:16:52 PM CET 
 //
 
 
@@ -45,11 +45,43 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link In }
+     * Create an instance of {@link Link }
      * 
      */
-    public In createIn() {
-        return new In();
+    public Link createLink() {
+        return new Link();
+    }
+
+    /**
+     * Create an instance of {@link Nffgs }
+     * 
+     */
+    public Nffgs createNffgs() {
+        return new Nffgs();
+    }
+
+    /**
+     * Create an instance of {@link Nffg }
+     * 
+     */
+    public Nffg createNffg() {
+        return new Nffg();
+    }
+
+    /**
+     * Create an instance of {@link Catalog }
+     * 
+     */
+    public Catalog createCatalog() {
+        return new Catalog();
+    }
+
+    /**
+     * Create an instance of {@link Vnf }
+     * 
+     */
+    public Vnf createVnf() {
+        return new Vnf();
     }
 
     /**
@@ -69,14 +101,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Connections }
-     * 
-     */
-    public Connections createConnections() {
-        return new Connections();
-    }
-
-    /**
      * Create an instance of {@link Connection }
      * 
      */
@@ -85,35 +109,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Catalog }
+     * Create an instance of {@link Connections }
      * 
      */
-    public Catalog createCatalog() {
-        return new Catalog();
-    }
-
-    /**
-     * Create an instance of {@link VnfType }
-     * 
-     */
-    public VnfType createVnfType() {
-        return new VnfType();
-    }
-
-    /**
-     * Create an instance of {@link Link }
-     * 
-     */
-    public Link createLink() {
-        return new Link();
-    }
-
-    /**
-     * Create an instance of {@link Nffg }
-     * 
-     */
-    public Nffg createNffg() {
-        return new Nffg();
+    public Connections createConnections() {
+        return new Connections();
     }
 
     /**

@@ -1,77 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <nfv xmlns="http://www.example.org/nfvInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/nfvInfo nfvInfo.xsd">
     <catalog>
-        <vnf name="Oe2gjUIjZxT8CWP" functionalType="VPN">
-            <reqMemory>1825309561</reqMemory>
-            <reqStorage>4215265587</reqStorage>
-        </vnf>
-        <vnf name="aass667" functionalType="DPI">
-            <reqMemory>3470853265</reqMemory>
-            <reqStorage>1546716507</reqStorage>
-        </vnf>
-        <vnf name="aass665" functionalType="MAIL_CLIENT">
-            <reqMemory>737506014</reqMemory>
-            <reqStorage>4214071586</reqStorage>
-        </vnf>
+        <vnf name="Oe2gjUIjZxT8CWP" functionalType="VPN" reqMemory="1825309561" reqStorage="5265587" />
+        <vnf name="aass667" functionalType="DPI" reqMemory="1825309561" reqStorage="5265587" />
+        <vnf name="A12dsfsfsf" functionalType="FW" reqMemory="1825309561" reqStorage="5265587" />
     </catalog>
     <nffgs>
         <nffg name="RL683mQC3RbX" deployTime="1994-02-23T23:55:38.53">
             <node name="Vi" vnfRef="aass667" hostRef="B">
-            	<link name="tra4" dstNode="ME" minThroughput="1815826272.79223" maxLatency="316324341" />
+            	<link name="tra4" dstNode="G02B3VY" minThroughput="1815826272.79223" maxLatency="316324341" />
             </node>
             <node name="G02B3VY" vnfRef="aass667" hostRef="Bu">
-            	<link name="hoh5F" dstNode="ME" minThroughput="1815826272.79223" maxLatency="316324341" />
-            	<link name="cab3" dstNode="ME" minThroughput="1815826272.79223" maxLatency="316324341" />
+            	<link name="hoh5F" dstNode="Vi" minThroughput="1815826272.79223" maxLatency="316324341" />
+            	<link name="cab3" dstNode="Vi" minThroughput="1815826272.79223" maxLatency="316324341" />
             </node>
         </nffg>
         <nffg name="Tgkkjds878" deployTime="1994-02-23T23:55:38.53">
             <node name="Vi2" vnfRef="aass667" hostRef="Ba">
-            	<link name="tra4" dstNode="ME" minThroughput="1815826272.79223" maxLatency="316324341" />
+            	<link name="tra4" dstNode="AG02B3VY" minThroughput="1815826272.79223" maxLatency="316324341" />
             </node>
             <node name="AG02B3VY" vnfRef="aass667" hostRef="Ba3">
-	            <link name="hoh5F" dstNode="ME" minThroughput="1815826272.79223" maxLatency="316324341" />
-	            <link name="cab3" dstNode="ME" minThroughput="1815826272.79223" maxLatency="316324341" />
+	            <link name="hoh5F" dstNode="Vi2" minThroughput="1815826272.79223" maxLatency="316324341" />
+	            <link name="cab3" dstNode="Vi2" minThroughput="1815826272.79223" maxLatency="316324341" />
             </node>
         </nffg>
     </nffgs>
     <hosts>
-        <host name="B">
-            <maxVnfs>1836317562</maxVnfs>
-            <memory>1166629081</memory>
-            <storage>1496869117</storage>
-            <nodeRef>TlT</nodeRef>
-            <nodeRef>s</nodeRef>
+        <host name="B" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
+            <nodeRef>Vi</nodeRef>
+            <nodeRef>Vi2</nodeRef>
         </host>
-        <host name="Bu">
-            <maxVnfs>3008461381</maxVnfs>
-            <memory>2853778134</memory>
-            <storage>1371499021</storage>
-            <nodeRef>C3LW</nodeRef>
+        <host name="Bu" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
+            <nodeRef>AG02B3VY</nodeRef>
+            <nodeRef>AG02B3VY</nodeRef>
         </host>
-        <host name="Ba">
-            <maxVnfs>1745290025</maxVnfs>
-            <memory>4209561870</memory>
-            <storage>1144071913</storage>
-            <nodeRef>V</nodeRef>
-            <nodeRef>rvMzx8</nodeRef>
-            <nodeRef>h</nodeRef>
+        <host name="Ba" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
+            <nodeRef>G02B3VY</nodeRef>
+            <nodeRef>Vi</nodeRef>
         </host>
-        <host name="Ba3">
-            <maxVnfs>999499019</maxVnfs>
-            <memory>1900398474</memory>
-            <storage>2952485073</storage>
-            <nodeRef>Tl5K5</nodeRef>
+        <host name="Ba3" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
+            <nodeRef>Vi2</nodeRef>
+            <nodeRef>Vi</nodeRef>
         </host>
-        <host name="Ba4">
-            <maxVnfs>999499019</maxVnfs>
-            <memory>1900398474</memory>
-            <storage>2952485073</storage>
-            <nodeRef>Tl5K5</nodeRef>
+        <host name="Ba4" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
+            <nodeRef>G02B3VY</nodeRef>
+            <nodeRef>AG02B3VY</nodeRef>
         </host>
     </hosts>
     <connections>
-        <connection host1="NQp9g3F" host2="AXDyw7" throughput="612438714.03919" latency="2535065791" />
-        <connection host1="NQp9g3F" host2="AXDyw7" throughput="612438714.03919" latency="2535065791" />
-        <connection host1="NQp9g3F" host2="AXDyw7" throughput="612438714.03919" latency="2535065791" />
+        <connection host1="B" host2="Bu" throughput="612438714.03919" latency="5065791" />
+        <connection host1="Ba" host2="Ba4" throughput="612438714.03919" latency="5065791" />
+        <connection host1="Ba3" host2="Bu" throughput="612438714.03919" latency="5065791" />
     </connections>
 </nfv>
