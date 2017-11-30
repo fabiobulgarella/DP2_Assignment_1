@@ -2,13 +2,15 @@
 // Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.29 alle 12:37:28 PM CET 
+// Generato il: 2017.11.29 alle 05:40:22 PM CET 
 //
 
 
 package it.polito.dp2.NFV.sol1.jaxb;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -28,9 +30,10 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.example.org/nfvInfo}max_vnfs"/>
- *         &lt;element ref="{http://www.example.org/nfvInfo}memory"/>
- *         &lt;element ref="{http://www.example.org/nfvInfo}storage"/>
+ *         &lt;element name="max_vnfs" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
+ *         &lt;element name="memory" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
+ *         &lt;element name="storage" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
+ *         &lt;element name="node" type="{http://www.example.org/nfvInfo}nameType" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *       &lt;attribute name="name" use="required" type="{http://www.example.org/nfvInfo}nameType" />
  *     &lt;/restriction>
@@ -44,7 +47,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "maxVnfs",
     "memory",
-    "storage"
+    "storage",
+    "node"
 })
 @XmlRootElement(name = "host")
 public class Host {
@@ -58,6 +62,7 @@ public class Host {
     @XmlElement(required = true)
     @XmlSchemaType(name = "nonNegativeInteger")
     protected BigInteger storage;
+    protected List<String> node;
     @XmlAttribute(name = "name", required = true)
     protected String name;
 
@@ -131,6 +136,35 @@ public class Host {
      */
     public void setStorage(BigInteger value) {
         this.storage = value;
+    }
+
+    /**
+     * Gets the value of the node property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the node property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getNode().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link String }
+     * 
+     * 
+     */
+    public List<String> getNode() {
+        if (node == null) {
+            node = new ArrayList<String>();
+        }
+        return this.node;
     }
 
     /**

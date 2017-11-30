@@ -1,40 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns="http://www.example.org/nfvInfo" elementFormDefault="qualified" targetNamespace="http://www.example.org/nfvInfo" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:r="http://www.example.org/nfvInfo"
+           xmlns="http://www.example.org/nfvInfo"
+           targetNamespace="http://www.example.org/nfvInfo"
+           elementFormDefault="qualified">
   
   <xs:element name="nfv">
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="catalog" />
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="nffg" />
-        <xs:element ref="in" />
+        <xs:element ref="nffgs" />
+        <xs:element ref="hosts" />
+        <xs:element ref="connections" />
       </xs:sequence>
     </xs:complexType>
-    <xs:key name="nffgKey">
-      <xs:selector xpath="nffg" />
+    <xs:key name="vnfKey">
+      <xs:selector xpath="r:catalog/r:vnf" />
       <xs:field xpath="@name" />
     </xs:key>
+    <xs:key name="nffgKey">
+      <xs:selector xpath="r:nffgs/r:nffg" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:key name="nodeKey">
+      <xs:selector xpath="r:nffgs/r:nffg/r:node" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:key name="hostKey">
+      <xs:selector xpath="r:hosts/r:host" />
+      <xs:field xpath="@name" />
+    </xs:key>
+    <xs:keyref name="vnfKeyref" refer="vnfKey">
+      <xs:selector xpath="r:nffgs/r:nffg/r:node" />
+      <xs:field xpath="@vnfRef" />
+    </xs:keyref>
+    <xs:keyref name="hostKeyref" refer="hostKey">
+      <xs:selector xpath="r:nffgs/r:nffg/r:node" />
+      <xs:field xpath="@hostRef" />
+    </xs:keyref>
   </xs:element>
   
   <xs:element name="catalog">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="1" maxOccurs="unbounded" ref="vnf_type" />
+        <xs:element minOccurs="1" maxOccurs="unbounded" ref="vnf" />
       </xs:sequence>
     </xs:complexType>
-    <xs:key name="vnfTypeKey">
-      <xs:selector xpath="vnf_type" />
-      <xs:field xpath="@name" />
-    </xs:key>
   </xs:element>
   
-  <xs:element name="vnf_type">
+  <xs:element name="vnf">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="req_memory" />
-        <xs:element ref="req_storage" />
+        <xs:element name="reqMemory" type="xs:nonNegativeInteger" />
+  		<xs:element name="reqStorage" type="xs:nonNegativeInteger" />
       </xs:sequence>
-      <xs:attribute name="name" type="nameType" use="required" />
-      <xs:attribute name="functional_type" use="required">
+      <xs:attribute name="name" type="nameType" />
+      <xs:attribute name="functionalType" use="required">
         <xs:simpleType>
           <xs:restriction base="xs:NMTOKEN">
             <xs:enumeration value="CACHE" />
@@ -53,78 +74,52 @@
     </xs:complexType>
   </xs:element>
   
-  <xs:element name="req_memory" type="xs:nonNegativeInteger" />
-  <xs:element name="req_storage" type="xs:nonNegativeInteger" />
+  <xs:element name="nffgs">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="nffg" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   
   <xs:element name="nffg">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="1" maxOccurs="unbounded" ref="node" />
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="link" />
       </xs:sequence>
       <xs:attribute name="name" type="nameType" use="required" />
-      <xs:attribute name="deploy_time" type="xs:dateTime" use="required" />
+      <xs:attribute name="deployTime" type="xs:dateTime" use="required" />
     </xs:complexType>
-    <xs:key name="nodeKey">
-      <xs:selector xpath="node" />
-      <xs:field xpath="@name" />
-    </xs:key>
     <xs:key name="linkKey">
-      <xs:selector xpath="link" />
+      <xs:selector xpath="r:node/r:link" />
       <xs:field xpath="@name" />
     </xs:key>
   </xs:element>
   
   <xs:element name="node">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="link" />
+      </xs:sequence>
       <xs:attribute name="name" type="nameType" use="required" />
-      <xs:attribute name="vnf_type" type="nameType" use="required" />
-      <xs:attribute name="host" type="nameType" use="required" />
+      <xs:attribute name="vnfRef" type="xs:string" use="required" />
+      <xs:attribute name="hostRef" type="xs:string" />
     </xs:complexType>
-    <xs:keyref name="vnfType" refer="vnfTypeKey">
-      <xs:selector xpath="node" />
-      <xs:field xpath="@vnf_type" />
-    </xs:keyref>
-    <xs:keyref name="host" refer="hostKey">
-      <xs:selector xpath="node" />
-      <xs:field xpath="@host" />
-    </xs:keyref>
   </xs:element>
   
   <xs:element name="link">
     <xs:complexType>
-      <xs:sequence minOccurs="0" maxOccurs="1">
-        <xs:element ref="min_throughput" />
-        <xs:element ref="max_latency" />
-      </xs:sequence>
       <xs:attribute name="name" type="nameType" use="required" />
-      <xs:attribute name="src_node" type="nameType" use="required" />
-      <xs:attribute name="dst_node" type="nameType" use="required" />
+      <xs:attribute name="dstNode" type="nameType" use="required" />
+      <xs:attribute name="minThroughput" type="nonNegativeFloat" />
+  	  <xs:attribute name="maxLatency" type="xs:nonNegativeInteger" />
     </xs:complexType>
-    <xs:keyref name="srcNode" refer="nodeKey">
+    <!--
+    <xs:keyref name="dstNodeKeyref" refer="nodeKey">
       <xs:selector xpath="link" />
-      <xs:field xpath="@src_node" />
+      <xs:field xpath="@dstNode" />
     </xs:keyref>
-    <xs:keyref name="dstNode" refer="nodeKey">
-      <xs:selector xpath="link" />
-      <xs:field xpath="@dst_node" />
-    </xs:keyref>
-  </xs:element>
-  
-  <xs:element name="min_throughput" type="nonNegativeFloat" />
-  <xs:element name="max_latency" type="xs:nonNegativeInteger" />
-  
-  <xs:element name="in">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="hosts" />
-        <xs:element ref="connections" />
-      </xs:sequence>
-    </xs:complexType>
-    <xs:key name="hostKey">
-      <xs:selector xpath="host" />
-      <xs:field xpath="@name" />
-    </xs:key>
+    -->
   </xs:element>
   
   <xs:element name="hosts">
@@ -138,18 +133,20 @@
   <xs:element name="host">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="max_vnfs" />
-        <xs:element ref="memory" />
-        <xs:element ref="storage" />
+        <xs:element name="maxVnfs" type="xs:nonNegativeInteger" />
+  		<xs:element name="memory" type="xs:nonNegativeInteger" />
+  		<xs:element name="storage" type="xs:nonNegativeInteger" />
+  		<xs:element name="nodeRef" type="nameType" minOccurs="0" maxOccurs="unbounded" /> 
       </xs:sequence>
       <xs:attribute name="name" type="nameType" use="required" />
-      <xs:attribute name="nodes" type="xs:IDREFS" />
     </xs:complexType>
+    <!--
+    <xs:keyref name="nodeKeyref" refer="nodeKey">
+      <xs:selector xpath="nodeRef" />
+      <xs:field xpath="@srcNode" />
+    </xs:keyref>
+    -->
   </xs:element>
-  
-  <xs:element name="max_vnfs" type="xs:nonNegativeInteger" />
-  <xs:element name="memory" type="xs:nonNegativeInteger" />
-  <xs:element name="storage" type="xs:nonNegativeInteger" />
   
   <xs:element name="connections">
     <xs:complexType>
@@ -161,27 +158,23 @@
   
   <xs:element name="connection">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="avg_throughput" />
-        <xs:element ref="avg_latency" />
-      </xs:sequence>
       <xs:attribute name="host1" type="nameType" use="required" />
       <xs:attribute name="host2" type="nameType" use="required" />
+      <xs:attribute name="throughput" type="nonNegativeFloat" use="required" />
+  	  <xs:attribute name="latency" type="xs:nonNegativeInteger" use="required" />
     </xs:complexType>
-    <xs:keyref name="host1" refer="hostKey">
+    <!--
+    <xs:keyref name="host1Keyref" refer="hostKey">
       <xs:selector xpath="connection" />
       <xs:field xpath="@host1" />
     </xs:keyref>
-    <xs:keyref name="host2" refer="hostKey">
+    <xs:keyref name="host2Keyref" refer="hostKey">
       <xs:selector xpath="connection" />
       <xs:field xpath="@host2" />
     </xs:keyref>
+    -->
   </xs:element>
   
-  <xs:element name="avg_throughput" type="nonNegativeFloat" />
-  <xs:element name="avg_latency" type="xs:nonNegativeInteger" />
-  
-  <!-- Pattern da utilizzare per specializzare l'attributo nome (ID) di alcuni elementi -->
   <xs:simpleType name="nameType">
     <xs:restriction base="xs:string">
       <xs:pattern value="[A-Za-z][A-Za-z0-9]*" />

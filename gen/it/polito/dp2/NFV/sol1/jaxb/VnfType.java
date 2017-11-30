@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'architettura JavaTM per XML Binding (JAXB) Reference Implementation, v2.2.8-b130911.1802 
 // Vedere <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2017.11.29 alle 12:37:28 PM CET 
+// Generato il: 2017.11.29 alle 05:40:22 PM CET 
 //
 
 
@@ -30,8 +30,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://www.example.org/nfvInfo}req_memory"/>
- *         &lt;element ref="{http://www.example.org/nfvInfo}req_storage"/>
+ *         &lt;element name="req_memory" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
+ *         &lt;element name="req_storage" type="{http://www.w3.org/2001/XMLSchema}nonNegativeInteger"/>
  *       &lt;/sequence>
  *       &lt;attribute name="name" use="required" type="{http://www.example.org/nfvInfo}nameType" />
  *       &lt;attribute name="functional_type" use="required">

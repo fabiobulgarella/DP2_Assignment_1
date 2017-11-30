@@ -1,65 +1,55 @@
-<!ELEMENT nfv (catalog,nffg*,in)>
+<!ELEMENT nfv (catalog,nffgs,hosts,connections)>
 
-<!ELEMENT catalog (vnf_type+)>
+<!ELEMENT catalog (vnf+)>
 
-<!ELEMENT vnf_type (req_memory,req_storage)>
-<!ATTLIST vnf_type
+<!ELEMENT vnf EMPTY>
+<!ATTLIST vnf
 		  name ID #REQUIRED
-		  functional_type (CACHE|DPI|FW|MAIL_CLIENT|MAIL_SERVER|NAT|SPAM|VPN|WEB_CLIENT|WEB_SERVER) #REQUIRED
+		  functionalType (CACHE|DPI|FW|MAIL_CLIENT|MAIL_SERVER|NAT|SPAM|VPN|WEB_CLIENT|WEB_SERVER) #REQUIRED
+		  reqMemory CDATA #REQUIRED
+		  reqStorage CDATA #REQUIRED
 >
 
-<!ELEMENT req_memory (#PCDATA)>
-<!ELEMENT req_storage (#PCDATA)>
+<!ELEMENT nffgs (nffg*)>
 
-<!ELEMENT nffg (node+,link*)>
+<!ELEMENT nffg (node+)>
 <!ATTLIST nffg
 		  name ID #REQUIRED
-		  deploy_time CDATA #REQUIRED
+		  deployTime CDATA #REQUIRED
 >
 
-<!ELEMENT node EMPTY>
+<!ELEMENT node (link*)>
 <!ATTLIST node
 		  name ID #REQUIRED
-		  vnf_type IDREF #REQUIRED
-		  host IDREF #REQUIRED
+		  vnfRef IDREF #REQUIRED
+		  hostRef IDREF #IMPLIED
 >
 
-<!ELEMENT link (min_throughput,max_latency)?>
+<!ELEMENT link EMPTY>
 <!ATTLIST link
 		  name ID #REQUIRED
-		  src_node IDREF #REQUIRED
-		  dst_node IDREF #REQUIRED
+		  dstNode IDREF #REQUIRED
+		  minThroughput CDATA #IMPLIED
+		  maxLatency CDATA #IMPLIED
 >
-
-<!ELEMENT min_throughput (#PCDATA)>
-<!ELEMENT max_latency (#PCDATA)>
-
-<!ELEMENT in (hosts,connections)>
 
 <!ELEMENT hosts (host*)>
 
-<!ELEMENT host (max_vnfs,memory,storage)>
+<!ELEMENT host EMPTY>
 <!ATTLIST host
 		  name ID #REQUIRED
+		  maxVnfs CDATA #REQUIRED
+		  memory CDATA #REQUIRED
+		  storage CDATA #REQUIRED
+		  nodes IDREFS #IMPLIED
 >
-<!-- Attributo rimosso dall'elemento host per eliminare ridondanza
-nodes IDREFS #IMPLIED
--->
-
-<!ELEMENT max_vnfs (#PCDATA)>
-<!ELEMENT memory (#PCDATA)>
-<!ELEMENT storage (#PCDATA)>
 
 <!ELEMENT connections (connection*)>
 
-<!ELEMENT connection (avg_throughput,avg_latency)>
+<!ELEMENT connection EMPTY>
 <!ATTLIST connection
 		  host1 IDREF #REQUIRED
 		  host2 IDREF #REQUIRED
+		  throughput CDATA #REQUIRED
+		  latency CDATA #REQUIRED
 >
-
-<!ELEMENT avg_throughput (#PCDATA)>
-<!ELEMENT avg_latency (#PCDATA)>
-
-
-

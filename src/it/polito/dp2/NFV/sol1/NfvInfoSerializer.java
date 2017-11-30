@@ -62,7 +62,8 @@ public class NfvInfoSerializer
             JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
             
             // create JAXBElement Root element
-            JAXBElement<Nfv> nfv = (JAXBElement<Nfv>) new Nfv();
+            // JAXBElement<Nfv> nfv = (JAXBElement<Nfv>) new Nfv();
+            Nfv nfv = new Nfv();
             
             // create a Marshaller and marshal to std out
             Marshaller m = jc.createMarshaller();
@@ -73,10 +74,10 @@ public class NfvInfoSerializer
 		catch( JAXBException je ) {
 			System.out.println("Error while unmarshalling or marshalling");
 			je.printStackTrace();
-			System.exit(1);
+			System.exit(1); /*
 		} catch( IOException ioe ) {
 			ioe.printStackTrace();
-			System.exit(1);
+			System.exit(1);*/
 		} catch( ClassCastException cce) {
 			System.out.println("Wrong data type found in XML document");
 			cce.printStackTrace();
