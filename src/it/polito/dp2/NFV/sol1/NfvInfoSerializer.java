@@ -38,7 +38,7 @@ public class NfvInfoSerializer
 		NfvInfoSerializer wf;
 		try {
 			wf = new NfvInfoSerializer();
-			wf.startMarshall();
+			wf.startMarshall(args[0]);
 		} catch (NfvReaderException e) {
 			System.err.println("Could not instantiate data generator.");
 			e.printStackTrace();
@@ -46,12 +46,12 @@ public class NfvInfoSerializer
 		}		
 	}
 	
-	private void startMarshall()
+	private void startMarshall(String fileName)
 	{	
 		try 
 		{
 			// create new xml file
-			File file = new File("file.xml");
+			File xmlFile = new File(fileName);
 			
 			// create a JAXBContext capable of handling the generated classes
             JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
@@ -63,7 +63,7 @@ public class NfvInfoSerializer
             // create a Marshaller and marshal to std out
             Marshaller m = jc.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(nfvObject, file);
+            m.marshal(nfvObject, xmlFile);
 		}
 		catch( JAXBException je ) {
 			System.out.println("Error while unmarshalling or marshalling");
