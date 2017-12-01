@@ -46,10 +46,6 @@
       <xs:selector xpath="r:connections/r:connection" />
       <xs:field xpath="@host2" />
     </xs:keyref>
-    <xs:key name="linkKey">
-      <xs:selector xpath="r:node/r:link" />
-      <xs:field xpath="@name" />
-    </xs:key>
   </xs:element>
   
   <xs:complexType name="nfvType">
@@ -92,6 +88,10 @@
   <xs:complexType name="nffgsType">
     <xs:sequence>
       <xs:element name="nffg" type="nffgType" minOccurs="0" maxOccurs="unbounded">
+      	<xs:key name="linkKey">
+	      <xs:selector xpath="r:node/r:link" />
+	      <xs:field xpath="@name" />
+	    </xs:key>
 	  </xs:element>
     </xs:sequence>
   </xs:complexType>
