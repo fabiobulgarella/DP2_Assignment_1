@@ -1,15 +1,15 @@
 package it.polito.dp2.NFV.sol1;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Set;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 import it.polito.dp2.NFV.*;
 import it.polito.dp2.NFV.sol1.jaxb.*;
@@ -17,33 +17,27 @@ import it.polito.dp2.NFV.sol1.jaxb.*;
 public class NfvInfoSerializer
 {
 	private NfvReader monitor;
-	private DateFormat dateFormat;
+	private ObjectFactory objFactory;
 
 	
 	/**
 	 * Default constructor
 	 * @throws NfvReaderException 
 	 */
-	public NfvInfoSerializer() throws NfvReaderException {
+	public NfvInfoSerializer() throws NfvReaderException
+	{
 		NfvReaderFactory factory = NfvReaderFactory.newInstance();
 		monitor = factory.newNfvReader();
-		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
-	}
-	
-	public NfvInfoSerializer(NfvReader monitor) {
-		super();
-		this.monitor = monitor;
-		dateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 	}
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		NfvInfoSerializer wf;
 		try {
 			wf = new NfvInfoSerializer();
-			// wf.printAll();
 			wf.startMarshall();
 		} catch (NfvReaderException e) {
 			System.err.println("Could not instantiate data generator.");
@@ -61,14 +55,13 @@ public class NfvInfoSerializer
 			// create a JAXBContext capable of handling the generated classes
             JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
             
-            // create JAXBElement Root element
-            // JAXBElement<Nfv> nfv = (JAXBElement<Nfv>) new Nfv();
-            Nfv nfv = new Nfv();
+            objFactory = new ObjectFactory();
+            JAXBElement<NfvType> nfvObject = objFactory.createNfv( createAll() ); 
             
             // create a Marshaller and marshal to std out
             Marshaller m = jc.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(nfv, System.out);
+            m.marshal(nfvObject, System.out);
             
 		}
 		catch( JAXBException je ) {
@@ -86,166 +79,163 @@ public class NfvInfoSerializer
 		
 	}
 
-	public void printAll() {
-		printLine(' ');
-		printHosts();
-		printCatalog();
-		printNffgs();
-		printPerformance();
-	}
+	public NfvType createAll()
+	{
+		// Create ROOT element (nfv)
+		NfvType nfv = objFactory.createNfvType();
 
-
-	private void printPerformance() {
-		// Get the list of Hosts
-		Set<HostReader> set = monitor.getHosts();
+		// Retrieve data from interfaces and generate XML related structures
+		nfv.setCatalog( createCatalog() );
+		nfv.setNffgs( createNffgs() );
+		nfv.setHosts( createHosts() );
+		nfv.setConnections( createConnections() );
 		
-		/* Print the header of the table */
-		printHeader('#',"#Information about the Performance of Host to Host connections");
-		printHeader("#Throughput Matrix:");
-		for (HostReader sri: set) {
-			System.out.print("\t"+sri.getName());
-		}
-		System.out.println(" ");
-		for (HostReader sri: set) {
-			System.out.print(sri.getName());
-			for (HostReader srj: set) {
-				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
-				System.out.print("\t"+cpr.getThroughput());
-			}
-			System.out.println(" ");
-		}
-		printBlankLine();
-		printHeader("#Latency Matrix:");
-		for (HostReader sri: set) {
-			System.out.print("\t"+sri.getName());
-		}
-		System.out.println(" ");
-		for (HostReader sri: set) {
-			System.out.print(sri.getName());
-			for (HostReader srj: set) {
-				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
-				System.out.print("\t"+cpr.getLatency());
-			}
-			System.out.println(" ");
-		}
-
+		return nfv;
 	}
 
-	private void printCatalog() {
+	private CatalogType createCatalog()
+	{
+		// Get the list of vnf
 		Set<VNFTypeReader> set = monitor.getVNFCatalog();
-		
-		/* Print the header of the table */
-		printHeader('#',"#Information about the CATALOG of VNFs");
-		printHeader("#Number of VNF types: "+set.size());
-		printHeader("#List of VNF types:");
+		CatalogType catalog = objFactory.createCatalogType();
 
-		// For each VNF type print name and class
-		for (VNFTypeReader vnfType_r: set) {
-			System.out.println("Type name " + vnfType_r.getName() +"\tFunc type: "+vnfType_r.getFunctionalType().value()+
-								"\tRequired Mem:"+vnfType_r.getRequiredMemory()+"\tRequired Sto:"+vnfType_r.getRequiredStorage());
-		}
-		printBlankLine();
-	}
-
-	private void printHosts() {
-		// Get the list of Hosts
-		Set<HostReader> set = monitor.getHosts();
-		
-		/* Print the header of the table */
-		printHeader('#',"#Information about HOSTS");
-		printHeader("#Number of Hosts: "+set.size());
-		printHeader("#List of Hosts:");
-		
-		// For each Host print related data
-		for (HostReader host_r: set) {
-			printHeader('%',"###Data for Host " + host_r.getName());
+		// For each VNF type get name and attribute
+		for (VNFTypeReader vnfType_r: set)
+		{
+			// Create a new vnf object
+			VnfType vnf = objFactory.createVnfType();
+			vnf.setName( vnfType_r.getName() );
+			vnf.setFunctionalType( vnfType_r.getFunctionalType().value() );
+			vnf.setReqMemory( vnfType_r.getRequiredMemory() );
+			vnf.setReqStorage( vnfType_r.getRequiredStorage() );
 			
-			// Print maximum number of nodes
-			printHeader("#Maximum number of nodes: "+host_r.getMaxVNFs());
-
-			// Print available memory
-			printHeader("#Available memory: "+host_r.getAvailableMemory());
-			
-			// Print available storage
-			printHeader("#Available storage: "+host_r.getAvailableStorage());	
-
-			// Print allocated nodes
-			Set<NodeReader> nodeSet = host_r.getNodes();
-			printHeader("#Number of Allocated Nodes: "+nodeSet.size());
-			printHeader("#List of Allocated Nodes:");
-			for (NodeReader nr: nodeSet)
-				System.out.println("Node " + nr.getName() +"\tType: "+nr.getFuncType().getName());
-			System.out.println("###End of Allocated nodes");
+			// Add generated vnf to catalog
+			catalog.getVnf().add(vnf);
 		}
-		printBlankLine();
+		
+		return catalog;
 	}
-
-	private void printBlankLine() {
-		System.out.println(" ");
-	}
-
-	private void printNffgs() {
+	
+	private NffgsType createNffgs()
+	{
 		// Get the list of NF-FGs
 		Set<NffgReader> set = monitor.getNffgs(null);
+		NffgsType nffgs = objFactory.createNffgsType();
 		
-		/* Print the header of the table */
-		printHeader('#',"#Information about NF-FGs");
-		printHeader("#Number of NF-FGs: "+set.size());
-		printHeader("#List of NF-FGs:");	
-		
-		// For each NFFG print related data
-		for (NffgReader nffg_r: set) {
-			printHeader('%',"###Data for NF-FG " + nffg_r.getName());
-
-			// Print deploy time
-			Calendar deployTime = nffg_r.getDeployTime();
-			printHeader("#Deploy time: "+dateFormat.format(deployTime.getTime()));
-
-			// Print nodes
-			Set<NodeReader> nodeSet = nffg_r.getNodes();
-			printHeader("#Number of Nodes: "+nodeSet.size());
-			printHeader("#List of Nodes: ");
-			for (NodeReader nr: nodeSet) {
-				printHeader('+',"+Node " + nr.getName() +"\tType: "+nr.getFuncType().getName()+"\t Allocated on: "+nr.getHost().getName()+
-						"\tNumber of links: "+nr.getLinks().size());
-				Set<LinkReader> linkSet = nr.getLinks();
-				System.out.println("+List of Links for node "+nr.getName());
-				printHeader("Link name \tsource \tdestination",'-');
-				for (LinkReader lr: linkSet)
-					System.out.println(lr.getName()+"\t"+lr.getSourceNode().getName()+"\t"+lr.getDestinationNode().getName());
-				printLine('-');
+		// For each NFFG get related data
+		for (NffgReader nffg_r: set)
+		{
+			// Create a new nffg object
+			NffgType nffg = objFactory.createNffgType();
+			nffg.setName( nffg_r.getName() );
+			
+			// Retrieve and convert date
+			try	{
+				GregorianCalendar deployTime = (GregorianCalendar) nffg_r.getDeployTime();
+				XMLGregorianCalendar convertedTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(deployTime);
+				nffg.setDeployTime( convertedTime );
 			}
-			printLine('+');
-			System.out.println("###End of Nodes");
-		}	
-		printBlankLine();
-	}
-	
-	private void printLine(char c) {
-		System.out.println(makeLine(c));
-	}
+			catch(DatatypeConfigurationException dce)
+			{
+				System.out.println("Error while converting date to XML format");
+				dce.printStackTrace();
+				System.exit(1);
+			}
 
-	private void printHeader(String header) {
-		System.out.println(header);
-	}
-
-	private void printHeader(String header, char c) {		
-		System.out.println(header);
-		printLine(c);	
-	}
-	
-	private void printHeader(char c, String header) {		
-		printLine(c);	
-		System.out.println(header);
-	}
-	
-	private StringBuffer makeLine(char c) {
-		StringBuffer line = new StringBuffer(132);
-		
-		for (int i = 0; i < 132; ++i) {
-			line.append(c);
+			// Get nodes
+			Set<NodeReader> nodeSet = nffg_r.getNodes();
+			
+			for (NodeReader nr: nodeSet)
+			{
+				// Create a new node object
+				NodeType node = objFactory.createNodeType();
+				node.setName( nr.getName() );
+				node.setVnfRef( nr.getFuncType().getName() );
+				node.setHostRef( nr.getHost().getName() );
+				
+				// Get related links
+				Set<LinkReader> linkSet = nr.getLinks();
+				
+				for (LinkReader lr: linkSet)
+				{
+					// Create a new link object
+					LinkType link = objFactory.createLinkType();
+					link.setName( lr.getName() );
+					link.setDstNode( lr.getDestinationNode().getName() );
+					link.setMinThroughput( lr.getThroughput() );
+					link.setMaxLatency( lr.getLatency() );
+					
+					// Add generated link to links list
+					node.getLink().add(link);
+				}
+				
+				// Add generated node to nodes list
+				nffg.getNode().add(node);
+			}
+			
+			// Add generated nffg to nffgs list
+			nffgs.getNffg().add(nffg);
 		}
-		return line;
+		
+		return nffgs;
 	}
 
+	private HostsType createHosts()
+	{
+		// Get the list of Hosts
+		Set<HostReader> set = monitor.getHosts();
+		HostsType hosts = objFactory.createHostsType();
+		
+		// For each Host get related data
+		for (HostReader host_r: set)
+		{
+			// Create a new host object
+			HostType host = objFactory.createHostType();
+			host.setName( host_r.getName() );
+			host.setMaxVnfs( host_r.getMaxVNFs() );
+			host.setMemory( host_r.getAvailableMemory() );
+			host.setStorage( host_r.getAvailableStorage() );
+
+			// Get allocated nodes
+			Set<NodeReader> nodeSet = host_r.getNodes();
+			
+			for (NodeReader nr: nodeSet)
+			{
+				host.getNodeRef().add( nr.getName() );
+			}
+			
+			// Add generated host to hosts list
+			hosts.getHost().add(host);
+		}
+		
+		return hosts;
+	}
+	
+	private ConnectionsType createConnections()
+	{
+		// Get the list of Hosts
+		Set<HostReader> set = monitor.getHosts();
+		ConnectionsType connections = objFactory.createConnectionsType();
+		
+		// For each pair of Hosts get related data
+		for (HostReader sri: set) {
+			for (HostReader srj: set)
+			{
+				// Create a new connection object
+				ConnectionType connection = objFactory.createConnectionType();
+				connection.setHost1( sri.getName() );
+				connection.setHost2( srj.getName() );
+				
+				// Get performance data
+				ConnectionPerformanceReader cpr = monitor.getConnectionPerformance(sri, srj);
+				connection.setThroughput( cpr.getThroughput() );
+				connection.setLatency( cpr.getLatency() );
+				
+				// Add generated connection to connections list
+				connections.getConnection().add(connection);
+			}
+		}
+		
+		return connections;
+	}
 }
