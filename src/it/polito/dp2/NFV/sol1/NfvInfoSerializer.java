@@ -10,7 +10,6 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
-
 import it.polito.dp2.NFV.*;
 import it.polito.dp2.NFV.sol1.jaxb.*;
 
@@ -46,8 +45,6 @@ public class NfvInfoSerializer
 		}		
 	}
 	
-
-	//
 	private void startMarshall()
 	{	
 		try 
@@ -55,6 +52,7 @@ public class NfvInfoSerializer
 			// create a JAXBContext capable of handling the generated classes
             JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
             
+            // Instantiate ObjectFactory and create main JAXBElement
             objFactory = new ObjectFactory();
             JAXBElement<NfvType> nfvObject = objFactory.createNfv( createAll() ); 
             
@@ -62,15 +60,11 @@ public class NfvInfoSerializer
             Marshaller m = jc.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             m.marshal(nfvObject, System.out);
-            
 		}
 		catch( JAXBException je ) {
 			System.out.println("Error while unmarshalling or marshalling");
 			je.printStackTrace();
-			System.exit(1); /*
-		} catch( IOException ioe ) {
-			ioe.printStackTrace();
-			System.exit(1);*/
+			System.exit(1);
 		} catch( ClassCastException cce) {
 			System.out.println("Wrong data type found in XML document");
 			cce.printStackTrace();
@@ -130,17 +124,18 @@ public class NfvInfoSerializer
 			nffg.setName( nffg_r.getName() );
 			
 			// Retrieve and convert date
-			try	{
-				GregorianCalendar deployTime = (GregorianCalendar) nffg_r.getDeployTime();
-				XMLGregorianCalendar convertedTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(deployTime);
-				nffg.setDeployTime( convertedTime );
+			GregorianCalendar deployTime = (GregorianCalendar) nffg_r.getDeployTime();
+			XMLGregorianCalendar convertedTime = null;
+			try {
+				convertedTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(deployTime);
 			}
-			catch(DatatypeConfigurationException dce)
+			catch (DatatypeConfigurationException dce)
 			{
 				System.out.println("Error while converting date to XML format");
 				dce.printStackTrace();
 				System.exit(1);
 			}
+			nffg.setDeployTime(convertedTime);
 
 			// Get nodes
 			Set<NodeReader> nodeSet = nffg_r.getNodes();
