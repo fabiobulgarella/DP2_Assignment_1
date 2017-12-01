@@ -1,5 +1,6 @@
 package it.polito.dp2.NFV.sol1;
 
+import java.io.File;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -49,6 +50,9 @@ public class NfvInfoSerializer
 	{	
 		try 
 		{
+			// create new xml file
+			File file = new File("file.xml");
+			
 			// create a JAXBContext capable of handling the generated classes
             JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
             
@@ -59,7 +63,7 @@ public class NfvInfoSerializer
             // create a Marshaller and marshal to std out
             Marshaller m = jc.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(nfvObject, System.out);
+            m.marshal(nfvObject, file);
 		}
 		catch( JAXBException je ) {
 			System.out.println("Error while unmarshalling or marshalling");
