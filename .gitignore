@@ -6,3 +6,7 @@ bin/
 
 # apache ant build files
 build/
+
+# jaxb generated binding classes
+gen/*
+!gen/.syncdir
