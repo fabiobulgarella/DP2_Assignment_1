@@ -26,7 +26,7 @@ public class NfvInfoSerializer
 	 */
 	public NfvInfoSerializer() throws NfvReaderException
 	{
-		NfvReaderFactory factory = NfvReaderFactory.newInstance();
+		it.polito.dp2.NFV.NfvReaderFactory factory = it.polito.dp2.NFV.NfvReaderFactory.newInstance();
 		monitor = factory.newNfvReader();
 	}
 
@@ -39,7 +39,8 @@ public class NfvInfoSerializer
 		try {
 			wf = new NfvInfoSerializer();
 			wf.startMarshall(args[0]);
-		} catch (NfvReaderException e) {
+		}
+		catch (NfvReaderException e) {
 			System.err.println("Could not instantiate data generator.");
 			e.printStackTrace();
 			System.exit(1);
@@ -48,8 +49,7 @@ public class NfvInfoSerializer
 	
 	private void startMarshall(String fileName)
 	{	
-		try 
-		{
+		try	{
 			// create new xml file
 			File xmlFile = new File(fileName);
 			
@@ -65,11 +65,12 @@ public class NfvInfoSerializer
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             m.marshal(nfvObject, xmlFile);
 		}
-		catch( JAXBException je ) {
+		catch (JAXBException je) {
 			System.out.println("Error while unmarshalling or marshalling");
 			je.printStackTrace();
 			System.exit(1);
-		} catch( ClassCastException cce) {
+		}
+		catch (ClassCastException cce) {
 			System.out.println("Wrong data type found in XML document");
 			cce.printStackTrace();
 			System.exit(1);
@@ -133,8 +134,7 @@ public class NfvInfoSerializer
 			try {
 				convertedTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(deployTime);
 			}
-			catch (DatatypeConfigurationException dce)
-			{
+			catch (DatatypeConfigurationException dce) {
 				System.out.println("Error while converting date to XML format");
 				dce.printStackTrace();
 				System.exit(1);
