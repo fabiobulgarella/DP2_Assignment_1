@@ -68,22 +68,22 @@ public class NfvInfoSerializer
 			File xmlFile = new File(fileName);
 			
 			// initialize JAXBContext and create marshaller
-            JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
-            Marshaller m = jc.createMarshaller();
-            
-            // Instantiate ObjectFactory and create main JAXBElement
-            objFactory = new ObjectFactory();
-            JAXBElement<NfvType> nfvObject = objFactory.createNfv( createAll() ); 
-            
-            // set validation wrt schema using default validation handler (rises exception with non-valid files)
-            String xsdPath = "xsd" + File.separator + "nfvInfo.xsd";
-            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schema = sf.newSchema(new File(xsdPath));
-            m.setSchema(schema);
-            
-            // execute marshall to xmlFile 
-            m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-            m.marshal(nfvObject, xmlFile);
+			JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
+			Marshaller m = jc.createMarshaller();
+			
+			// Instantiate ObjectFactory and create main JAXBElement
+			objFactory = new ObjectFactory();
+			JAXBElement<NfvType> nfvObject = objFactory.createNfv( createAll() ); 
+			
+			// set validation wrt schema using default validation handler (rises exception with non-valid files)
+			String xsdPath = "xsd" + File.separator + "nfvInfo.xsd";
+			SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+			Schema schema = sf.newSchema(new File(xsdPath));
+			m.setSchema(schema);
+			
+			// execute marshall to xmlFile 
+			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			m.marshal(nfvObject, xmlFile);
 		}
 		catch (JAXBException je) {
 			System.err.println("Error while marshalling");
