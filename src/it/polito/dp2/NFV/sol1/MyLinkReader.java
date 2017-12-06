@@ -6,9 +6,8 @@ import it.polito.dp2.NFV.LinkReader;
 import it.polito.dp2.NFV.NodeReader;
 import it.polito.dp2.NFV.sol1.jaxb.LinkType;
 
-public class MyLinkReader implements LinkReader
+public class MyLinkReader extends MyNamedEntityReader implements LinkReader
 {
-	private String name;
 	private String srcNodeName;
 	private String dstNodeName;
 	private int latency;
@@ -17,30 +16,24 @@ public class MyLinkReader implements LinkReader
 
 	public MyLinkReader(LinkType link, String srcNodeName, HashMap<String, NodeReader> nodeMap)
 	{
-		this.name = link.getName();
+		super(link.getName());
 		this.srcNodeName = srcNodeName;
 		this.dstNodeName = link.getDstNode();
 		this.latency = link.getMaxLatency();
 		this.throughput = link.getMinThroughput();
 		this.nodeMap = nodeMap;
 	}
-
-	@Override
-	public String getName()
-	{
-		return (name != null) ? name : null;
-	}
 	
 	@Override
 	public NodeReader getSourceNode()
 	{
-		return (srcNodeName != null) ? nodeMap.get(srcNodeName) : null;
+		return nodeMap.get(srcNodeName);
 	}
 
 	@Override
 	public NodeReader getDestinationNode()
 	{
-		return (dstNodeName != null) ? nodeMap.get(dstNodeName) : null;
+		return nodeMap.get(dstNodeName);
 	}
 
 	@Override

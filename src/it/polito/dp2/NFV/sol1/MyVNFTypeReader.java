@@ -4,9 +4,8 @@ import it.polito.dp2.NFV.FunctionalType;
 import it.polito.dp2.NFV.VNFTypeReader;
 import it.polito.dp2.NFV.sol1.jaxb.VnfType;
 
-public class MyVNFTypeReader implements VNFTypeReader
+public class MyVNFTypeReader extends MyNamedEntityReader implements VNFTypeReader
 {
-	private String name;
 	private FunctionalType functionalType;
 	private int requiredMemory;
 	private int requiredStorage;
@@ -14,18 +13,12 @@ public class MyVNFTypeReader implements VNFTypeReader
 	// class constructor
 	public MyVNFTypeReader(VnfType vnf)
 	{
-		this.name = vnf.getName();
+		super(vnf.getName());
 		this.functionalType = FunctionalType.fromValue( vnf.getFunctionalType() );
 		this.requiredMemory = vnf.getReqMemory();
 		this.requiredStorage = vnf.getReqStorage();
 	}
 	
-	@Override
-	public String getName()
-	{
-		return name;
-	}
-
 	@Override
 	public FunctionalType getFunctionalType()
 	{

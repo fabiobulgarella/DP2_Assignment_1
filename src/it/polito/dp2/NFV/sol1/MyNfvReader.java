@@ -77,28 +77,43 @@ public class MyNfvReader implements NfvReader
 	@Override
 	public ConnectionPerformanceReader getConnectionPerformance(HostReader arg0, HostReader arg1)
 	{
-		if(arg0 == null || arg1 == null )
+		if(arg0 == null || arg1 == null)
+		{
+			System.out.println("Error on passed arguments");
 			return null;
+		}
 		
-		return (connectionMap != null) ? connectionMap.get(arg0.getName() + arg1.getName()) : null;
+		return connectionMap.get(arg0.getName() + arg1.getName());
 	}
 
 	@Override
 	public HostReader getHost(String arg0)
 	{
-		return (arg0 != null) ? hostMap.get(arg0) : null;
+		if(arg0 == null)
+		{
+			System.out.println("Error on passed argument");
+			return null;
+		}
+		
+		return hostMap.get(arg0);
 	}
 
 	@Override
 	public Set<HostReader> getHosts()
 	{
-		return (hostSet != null) ? hostSet : null;
+		return hostSet;
 	}
 
 	@Override
 	public NffgReader getNffg(String arg0)
 	{
-		return (arg0 != null) ? nffgMap.get(arg0) : null;
+		if(arg0 == null)
+		{
+			System.out.println("Error on passed argument");
+			return null;
+		}
+		
+		return nffgMap.get(arg0);
 	}
 
 	@Override
@@ -120,7 +135,7 @@ public class MyNfvReader implements NfvReader
 	@Override
 	public Set<VNFTypeReader> getVNFCatalog()
 	{
-		return (vnfSet != null) ? vnfSet : null;
+		return vnfSet;
 	}
 
 }

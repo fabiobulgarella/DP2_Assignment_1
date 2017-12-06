@@ -9,9 +9,8 @@ import it.polito.dp2.NFV.HostReader;
 import it.polito.dp2.NFV.NodeReader;
 import it.polito.dp2.NFV.sol1.jaxb.HostType;
 
-public class MyHostReader implements HostReader
+public class MyHostReader extends MyNamedEntityReader implements HostReader
 {
-	private String name;
 	private int availableMemory;
 	private int availableStorage;
 	private int maxVNFs;
@@ -21,18 +20,12 @@ public class MyHostReader implements HostReader
 	// class constructor
 	public MyHostReader(HostType host, HashMap<String, NodeReader> nodeMap)
 	{
-		this.name = host.getName();
+		super(host.getName());
 		this.availableMemory = host.getMemory();
 		this.availableStorage = host.getStorage();
 		this.maxVNFs = host.getMaxVnfs();
 		this.nodeList = host.getNodeRef();
 		this.nodeMap = nodeMap;
-	}
-
-	@Override
-	public String getName()
-	{
-		return (name != null) ? name : null;
 	}
 
 	@Override

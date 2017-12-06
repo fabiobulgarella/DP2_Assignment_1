@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
@@ -11,6 +12,11 @@ import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+
+import org.xml.sax.SAXException;
+
 import it.polito.dp2.NFV.*;
 import it.polito.dp2.NFV.sol1.jaxb.*;
 
@@ -36,6 +42,14 @@ public class NfvInfoSerializer
 	public static void main(String[] args)
 	{
 		NfvInfoSerializer wf;
+		
+		// check if filename has been given as argument
+		if (args.length != 1)
+		{
+			System.err.println("Output filename is missing");
+			System.exit(1);
+        }
+		
 		try {
 			wf = new NfvInfoSerializer();
 			wf.startMarshall(args[0]);
@@ -53,27 +67,37 @@ public class NfvInfoSerializer
 			// create new xml file
 			File xmlFile = new File(fileName);
 			
-			// create a JAXBContext capable of handling the generated classes
+			// initialize JAXBContext and create marshaller
             JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
+            Marshaller m = jc.createMarshaller();
             
             // Instantiate ObjectFactory and create main JAXBElement
             objFactory = new ObjectFactory();
             JAXBElement<NfvType> nfvObject = objFactory.createNfv( createAll() ); 
             
-            // create a Marshaller and marshal to std out
-            Marshaller m = jc.createMarshaller();
+            // set validation wrt schema using default validation handler (rises exception with non-valid files)
+            String xsdPath = "xsd" + File.separator + "nfvInfo.xsd";
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = sf.newSchema(new File(xsdPath));
+            m.setSchema(schema);
+            
+            // execute marshall to xmlFile 
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             m.marshal(nfvObject, xmlFile);
 		}
 		catch (JAXBException je) {
-			System.out.println("Error while unmarshalling or marshalling");
+			System.err.println("Error while marshalling");
 			je.printStackTrace();
 			System.exit(1);
 		}
 		catch (ClassCastException cce) {
-			System.out.println("Wrong data type found in XML document");
+			System.err.println("Wrong data type found in XML document");
 			cce.printStackTrace();
 			System.exit(1);
+		}
+		catch (SAXException se) {
+			System.err.println("Unable to validate file or schema");
+			se.printStackTrace();
 		}
 		
 	}

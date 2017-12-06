@@ -12,9 +12,8 @@ import it.polito.dp2.NFV.VNFTypeReader;
 import it.polito.dp2.NFV.sol1.jaxb.LinkType;
 import it.polito.dp2.NFV.sol1.jaxb.NodeType;
 
-public class MyNodeReader implements NodeReader
+public class MyNodeReader extends MyNamedEntityReader implements NodeReader
 {
-	private String name;
 	private String vnfName;
 	private String hostName;
 	private Set<LinkReader> links;
@@ -26,7 +25,7 @@ public class MyNodeReader implements NodeReader
 	// class constructor
 	public MyNodeReader(NodeType node, String nffgName, HashMap<String, VNFTypeReader> vnfMap, HashMap<String, NffgReader> nffgMap, HashMap<String, NodeReader> nodeMap, HashMap<String, HostReader> hostMap)
 	{
-		this.name = node.getName();
+		super(node.getName());
 		this.vnfName = node.getVnfRef();
 		this.hostName = node.getHostRef();
 		this.nffgName = nffgName;
@@ -45,33 +44,27 @@ public class MyNodeReader implements NodeReader
 	}
 
 	@Override
-	public String getName()
-	{
-		return (name != null) ? name : null;
-	}
-
-	@Override
 	public VNFTypeReader getFuncType()
 	{
-		return (vnfName != null) ? vnfMap.get(vnfName) : null;
+		return vnfMap.get(vnfName);
 	}
 
 	@Override
 	public HostReader getHost()
 	{
-		return (hostName != null) ? hostMap.get(hostName) : null;
+		return hostMap.get(hostName);
 	}
 
 	@Override
 	public Set<LinkReader> getLinks()
 	{
-		return (links != null) ? links : null;
+		return links;
 	}
 
 	@Override
 	public NffgReader getNffg()
 	{
-		return (nffgName != null) ? nffgMap.get(nffgName) : null;
+		return nffgMap.get(nffgName);
 	}
 
 }

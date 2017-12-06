@@ -12,9 +12,8 @@ import it.polito.dp2.NFV.VNFTypeReader;
 import it.polito.dp2.NFV.sol1.jaxb.NffgType;
 import it.polito.dp2.NFV.sol1.jaxb.NodeType;
 
-public class MyNffgReader implements NffgReader
+public class MyNffgReader extends MyNamedEntityReader implements NffgReader
 {
-	private String name;
 	private Calendar deployTime;
 	private Set<NodeReader> nodes;
 	private HashMap<String, NodeReader> nodeMap;
@@ -22,7 +21,7 @@ public class MyNffgReader implements NffgReader
 	// class constructor
 	public MyNffgReader(NffgType nffg, HashMap<String, VNFTypeReader> vnfMap, HashMap<String, NffgReader> nffgMap, HashMap<String, NodeReader> nodeMap, HashMap<String, HostReader> hostMap)
 	{
-		this.name = nffg.getName();
+		super(nffg.getName());
 		this.deployTime = nffg.getDeployTime().toGregorianCalendar();
 		this.nodeMap = nodeMap;
 		
@@ -38,27 +37,27 @@ public class MyNffgReader implements NffgReader
 	}
 
 	@Override
-	public String getName()
-	{
-		return (name != null) ? name : null;
-	}
-
-	@Override
 	public Calendar getDeployTime()
 	{
-		return (deployTime != null) ? deployTime : null;
+		return deployTime;
 	}
 
 	@Override
 	public NodeReader getNode(String arg0)
 	{
-		return (arg0 != null) ? nodeMap.get(arg0) : null;
+		if(arg0 == null)
+		{
+			System.out.println("Error on passed argument");
+			return null;
+		}
+		
+		return nodeMap.get(arg0);
 	}
 
 	@Override
 	public Set<NodeReader> getNodes()
 	{
-		return (nodes != null) ? nodes : null;
+		return nodes;
 	}
 
 }

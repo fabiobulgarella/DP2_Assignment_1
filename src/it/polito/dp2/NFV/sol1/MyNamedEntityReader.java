@@ -15,10 +15,7 @@ public class MyNamedEntityReader implements NamedEntityReader
 	@Override
 	public String getName()
 	{
-		if (name != null)
-			return name;
-		else
-			return null;
+		return name;
 	}
 
 }
