@@ -22,7 +22,7 @@ public class MyNodeReader extends MyNamedEntityReader implements NodeReader
 	private HashMap<String, NffgReader> nffgMap;
 	private HashMap<String, HostReader> hostMap;
 
-	// class constructor
+	// Class constructor
 	public MyNodeReader(NodeType node, String nffgName, HashMap<String, VNFTypeReader> vnfMap, HashMap<String, NffgReader> nffgMap, HashMap<String, NodeReader> nodeMap, HashMap<String, HostReader> hostMap)
 	{
 		super(node.getName());
@@ -33,7 +33,7 @@ public class MyNodeReader extends MyNamedEntityReader implements NodeReader
 		this.nffgMap = nffgMap;
 		this.hostMap = hostMap;
 		
-		// load links
+		// Load links
 		links = new HashSet<LinkReader>();
 		
 		for (LinkType link: node.getLink())

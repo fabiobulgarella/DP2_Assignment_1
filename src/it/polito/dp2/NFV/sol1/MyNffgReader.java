@@ -18,14 +18,14 @@ public class MyNffgReader extends MyNamedEntityReader implements NffgReader
 	private Set<NodeReader> nodes;
 	private HashMap<String, NodeReader> nodeMap;
 	
-	// class constructor
+	// Class constructor
 	public MyNffgReader(NffgType nffg, HashMap<String, VNFTypeReader> vnfMap, HashMap<String, NffgReader> nffgMap, HashMap<String, NodeReader> nodeMap, HashMap<String, HostReader> hostMap)
 	{
 		super(nffg.getName());
 		this.deployTime = nffg.getDeployTime().toGregorianCalendar();
 		this.nodeMap = nodeMap;
 		
-		// load nodes
+		// Load nodes
 		nodes = new HashSet<NodeReader>();
 		
 		for (NodeType node: nffg.getNode())
@@ -47,7 +47,7 @@ public class MyNffgReader extends MyNamedEntityReader implements NffgReader
 	{
 		if(arg0 == null)
 		{
-			System.out.println("Error on passed argument");
+			// Argument is null, don't even scan nodeMap
 			return null;
 		}
 		

@@ -6,7 +6,7 @@ public class MyNamedEntityReader implements NamedEntityReader
 {
 	private String name;
 	
-	// class constructor
+	// Class constructor
 	public MyNamedEntityReader(String name)
 	{
 		this.name = name;

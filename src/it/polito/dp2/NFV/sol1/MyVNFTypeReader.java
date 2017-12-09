@@ -10,7 +10,7 @@ public class MyVNFTypeReader extends MyNamedEntityReader implements VNFTypeReade
 	private int requiredMemory;
 	private int requiredStorage;
 
-	// class constructor
+	// Class constructor
 	public MyVNFTypeReader(VnfType vnf)
 	{
 		super(vnf.getName());

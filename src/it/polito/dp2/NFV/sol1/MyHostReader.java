@@ -14,17 +14,17 @@ public class MyHostReader extends MyNamedEntityReader implements HostReader
 	private int availableMemory;
 	private int availableStorage;
 	private int maxVNFs;
-	private List<String> nodeList;
+	private List<String> nodeNameList;
 	private HashMap<String, NodeReader> nodeMap;
 	
-	// class constructor
+	// Class constructor
 	public MyHostReader(HostType host, HashMap<String, NodeReader> nodeMap)
 	{
 		super(host.getName());
 		this.availableMemory = host.getMemory();
 		this.availableStorage = host.getStorage();
 		this.maxVNFs = host.getMaxVnfs();
-		this.nodeList = host.getNodeRef();
+		this.nodeNameList = host.getNodeRef();
 		this.nodeMap = nodeMap;
 	}
 
@@ -51,9 +51,9 @@ public class MyHostReader extends MyNamedEntityReader implements HostReader
 	{
 		Set<NodeReader> set = new HashSet<NodeReader>();
 		
-		for (String node: nodeList)
+		for (String nodeName: nodeNameList)
 		{
-			NodeReader newNode_r = nodeMap.get(node);
+			NodeReader newNode_r = nodeMap.get(nodeName);
 			set.add(newNode_r);
 		}
 		

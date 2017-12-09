@@ -14,6 +14,7 @@ public class MyLinkReader extends MyNamedEntityReader implements LinkReader
 	private float throughput;
 	private HashMap<String, NodeReader> nodeMap;
 
+	// Class constructor
 	public MyLinkReader(LinkType link, String srcNodeName, HashMap<String, NodeReader> nodeMap)
 	{
 		super(link.getName());

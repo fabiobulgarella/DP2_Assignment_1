@@ -25,24 +25,24 @@ public class MyNfvReader implements NfvReader
 	private HashMap<String, HostReader> hostMap;
 	private HashMap<String, ConnectionPerformanceReader> connectionMap;
 
-	// class constructor
+	// Class constructor
 	public MyNfvReader(NfvType nfv)
 	{
 		nfvObject = nfv;
 		
-		// create sets classes for storing data
+		// Create sets classes for storing data
 		vnfSet = new HashSet<VNFTypeReader>();
 		nffgSet = new HashSet<NffgReader>();
 		hostSet = new HashSet<HostReader>();
 				
-		// create hash-map for reference entities between them
+		// Create hash-map for reference entities between them
 		vnfMap = new HashMap<String, VNFTypeReader>();
 		nffgMap = new HashMap<String, NffgReader>();
 		nodeMap = new HashMap<String, NodeReader>();
 		hostMap = new HashMap<String, HostReader>();
 		connectionMap = new HashMap<String, ConnectionPerformanceReader>();
 		
-		// load catalog
+		// Load catalog
 		for (VnfType vnf: nfvObject.getCatalog().getVnf())
 		{
 			VNFTypeReader newVnf_r = new MyVNFTypeReader(vnf);
@@ -50,7 +50,7 @@ public class MyNfvReader implements NfvReader
 			vnfSet.add(newVnf_r);
 		}
 		
-		// load nffgs
+		// Load nffgs
 		for (NffgType nffg: nfvObject.getNffgs().getNffg())
 		{
 			NffgReader newNffg_r = new MyNffgReader(nffg, vnfMap, nffgMap, nodeMap, hostMap);
@@ -58,7 +58,7 @@ public class MyNfvReader implements NfvReader
 			nffgSet.add(newNffg_r);
 		}
 		
-		// load hosts
+		// Load hosts
 		for (HostType host: nfvObject.getHosts().getHost())
 		{
 			HostReader newHost_r = new MyHostReader(host, nodeMap);
@@ -66,7 +66,7 @@ public class MyNfvReader implements NfvReader
 			hostSet.add(newHost_r);
 		}
 		
-		// load connections
+		// Load connections
 		for (ConnectionType connection: nfvObject.getConnections().getConnection())
 		{
 			ConnectionPerformanceReader newConnection_r = new MyConnectionPerformanceReader(connection.getLatency(), connection.getThroughput());
@@ -79,7 +79,7 @@ public class MyNfvReader implements NfvReader
 	{
 		if(arg0 == null || arg1 == null)
 		{
-			System.out.println("Error on passed arguments");
+			// Argument(s) is/are null, don't even scan connectionMap
 			return null;
 		}
 		
@@ -91,7 +91,7 @@ public class MyNfvReader implements NfvReader
 	{
 		if(arg0 == null)
 		{
-			System.out.println("Error on passed argument");
+			// Argument is null, don't even scan hostMap
 			return null;
 		}
 		
@@ -109,7 +109,7 @@ public class MyNfvReader implements NfvReader
 	{
 		if(arg0 == null)
 		{
-			System.out.println("Error on passed argument");
+			// Argument is null, don't even scan nffgMap
 			return null;
 		}
 		
@@ -119,6 +119,7 @@ public class MyNfvReader implements NfvReader
 	@Override
 	public Set<NffgReader> getNffgs(Calendar arg0)
 	{
+		// Return all set 'cause argument is null
 		if (arg0 == null)
 			return nffgSet;
 

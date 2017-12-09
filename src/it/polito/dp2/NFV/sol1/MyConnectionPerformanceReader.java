@@ -7,7 +7,7 @@ public class MyConnectionPerformanceReader implements ConnectionPerformanceReade
 	private int latency;
 	private float throughput;
 	
-	// class constructor
+	// Class constructor
 	public MyConnectionPerformanceReader(int latency, float throughput)
 	{
 		this.latency = latency;

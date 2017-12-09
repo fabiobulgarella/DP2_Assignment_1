@@ -50,7 +50,7 @@ public class NfvInfoSerializer
 	{
 		NfvInfoSerializer wf;
 		
-		// check if filename has been given as argument
+		// Check if filename has been given as argument
 		if (args.length != 1)
 		{
 			System.err.println("Output filename is missing");
@@ -71,10 +71,10 @@ public class NfvInfoSerializer
 	private void startMarshall(String fileName)
 	{	
 		try	{
-			// create new xml file
+			// Create new xml file
 			File xmlFile = new File(fileName);
 			
-			// initialize JAXBContext and create marshaller
+			// Initialize JAXBContext and create marshaller
 			JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
 			Marshaller m = jc.createMarshaller();
 			
@@ -82,13 +82,13 @@ public class NfvInfoSerializer
 			objFactory = new ObjectFactory();
 			JAXBElement<NfvType> nfvObject = objFactory.createNfv( createAll() ); 
 			
-			// set validation wrt schema using default validation handler (rises exception with non-valid files)
+			// Set validation wrt schema using default validation handler (rises exception with non-valid files)
 			String xsdPath = "xsd" + File.separator + "nfvInfo.xsd";
 			SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			Schema schema = sf.newSchema(new File(xsdPath));
 			m.setSchema(schema);
 			
-			// execute marshall to xmlFile 
+			// Execute marshall to xmlFile 
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			m.marshal(nfvObject, xmlFile);
 		}

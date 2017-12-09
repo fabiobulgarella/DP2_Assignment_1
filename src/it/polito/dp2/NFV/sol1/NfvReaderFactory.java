@@ -22,46 +22,44 @@ public class NfvReaderFactory extends it.polito.dp2.NFV.NfvReaderFactory {
 	@Override
 	public NfvReader newNfvReader() throws NfvReaderException
 	{
-		// create NfvType object that will contain unmarshalled data
+		// Create NfvType object that will contain unmarshalled data
 		NfvType nfv = null;
 		
+		// Read system property containing the name of xml file
+		String fileName = System.getProperty("it.polito.dp2.NFV.sol1.NfvInfo.file");
+		
+		// Check if System Property has been read correctly
+		if (fileName == null)
+		{
+			throw new NfvReaderException("System property \"it.polito.dp2.NFV.sol1.NfvInfo.file\" not found");
+		}
+		
 		try {
-			// initialize JAXBContext and create unmarshaller
+			// Initialize JAXBContext and create unmarshaller
 			JAXBContext jc = JAXBContext.newInstance("it.polito.dp2.NFV.sol1.jaxb");
 			Unmarshaller u = jc.createUnmarshaller();
 			
-			// set validation wrt schema using default validation handler (rises exception with non-valid files)
+			// Set validation wrt schema using default validation handler (rises exception with non-valid files)
 			String xsdPath = "xsd" + File.separator + "nfvInfo.xsd";
 			SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			Schema schema = sf.newSchema(new File(xsdPath));
 			u.setSchema(schema);
 			
-			// unmarshal file named fileName
-			String fileName = System.getProperty("it.polito.dp2.NFV.sol1.NfvInfo.file");
-			
-			// check if System Property has been read correctly
-			if (fileName == null)
-			{
-				System.err.println("System property \"it.polito.dp2.NFV.sol1.NfvInfo.file\" not found");
-				System.exit(1);
-			}
-			
+			// Unmarshal xml file named fileName
 			JAXBElement<NfvType> jaxbNfv = (JAXBElement<NfvType>) u.unmarshal( new File(fileName) );
 			nfv = (NfvType) jaxbNfv.getValue();
 		}
-		catch ( UnmarshalException ue ) {
-			System.err.println( "Caught UnmarshalException" );
-			ue.printStackTrace();
-			System.exit(1);
+		catch (UnmarshalException ue) {
+			throw new NfvReaderException(ue, "Caught UnmarshalException");
 		}
-		catch ( JAXBException je ) {
-			System.err.println("Error while unmarshalling or marshalling");
-			je.printStackTrace();
-			System.exit(1);
+		catch (JAXBException je) {
+			throw new NfvReaderException(je, "Error while unmarshalling or marshalling");
 		}
 		catch (SAXException se) {
-			System.err.println("Unable to validate file or schema");
-			se.printStackTrace();
+			throw new NfvReaderException(se, "Unable to validate file or schema");
+		}
+		catch (Exception e) {
+			throw new NfvReaderException(e, "Unexpected exception");
 		}
 		
 		return new MyNfvReader(nfv);
