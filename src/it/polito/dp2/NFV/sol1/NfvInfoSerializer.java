@@ -1,6 +1,7 @@
 package it.polito.dp2.NFV.sol1;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -34,6 +35,12 @@ public class NfvInfoSerializer
 	{
 		it.polito.dp2.NFV.NfvReaderFactory factory = it.polito.dp2.NFV.NfvReaderFactory.newInstance();
 		monitor = factory.newNfvReader();
+	}
+	
+	public NfvInfoSerializer(NfvReader monitor)
+	{
+		super();
+		this.monitor = monitor;
 	}
 
 	/**
@@ -159,7 +166,7 @@ public class NfvInfoSerializer
 				convertedTime = DatatypeFactory.newInstance().newXMLGregorianCalendar(deployTime);
 			}
 			catch (DatatypeConfigurationException dce) {
-				System.out.println("Error while converting date to XML format");
+				System.err.println("Error while converting date to XML format");
 				dce.printStackTrace();
 				System.exit(1);
 			}
