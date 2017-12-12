@@ -23,7 +23,7 @@ public class NfvReaderFactory extends it.polito.dp2.NFV.NfvReaderFactory {
 	public NfvReader newNfvReader() throws NfvReaderException
 	{
 		// Create NfvType object that will contain unmarshalled data
-		NfvType nfv = null;
+		NfvType nfv;
 		
 		// Read system property containing the name of xml file
 		String fileName = System.getProperty("it.polito.dp2.NFV.sol1.NfvInfo.file");
@@ -47,7 +47,7 @@ public class NfvReaderFactory extends it.polito.dp2.NFV.NfvReaderFactory {
 			
 			// Unmarshal xml file named fileName
 			JAXBElement<NfvType> jaxbNfv = (JAXBElement<NfvType>) u.unmarshal( new File(fileName) );
-			nfv = (NfvType) jaxbNfv.getValue();
+			nfv = jaxbNfv.getValue();
 		}
 		catch (UnmarshalException ue) {
 			throw new NfvReaderException(ue, "Caught UnmarshalException");

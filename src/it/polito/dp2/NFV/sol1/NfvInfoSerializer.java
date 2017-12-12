@@ -1,7 +1,6 @@
 package it.polito.dp2.NFV.sol1;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
