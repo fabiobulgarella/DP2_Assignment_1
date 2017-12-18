@@ -27,7 +27,7 @@
 
 <!ELEMENT link EMPTY>
 <!ATTLIST link
-		  name ID #REQUIRED
+		  name NMTOKEN #REQUIRED
 		  dstNode IDREF #REQUIRED
 		  minThroughput CDATA #IMPLIED
 		  maxLatency CDATA #IMPLIED
@@ -35,13 +35,17 @@
 
 <!ELEMENT hosts (host*)>
 
-<!ELEMENT host EMPTY>
+<!ELEMENT host (nodeRef*)>
 <!ATTLIST host
 		  name ID #REQUIRED
 		  maxVnfs CDATA #REQUIRED
 		  memory CDATA #REQUIRED
 		  storage CDATA #REQUIRED
-		  nodes IDREFS #IMPLIED
+>
+
+<!ELEMENT nodeRef EMPTY>
+<!ATTLIST nodeRef
+		  name IDREF #REQUIRED
 >
 
 <!ELEMENT connections (connection*)>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<nfv xmlns="http://www.example.org/nfvInfo" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/nfvInfo nfvInfo.xsd">
+<!DOCTYPE note SYSTEM "nfvInfo.dtd">
+<nfv>
     <catalog>
         <vnf name="Oe2gjUIjZxT8CWP" functionalType="VPN" reqMemory="1825309561" reqStorage="5265587" />
         <vnf name="aass667" functionalType="DPI" reqMemory="1825309561" reqStorage="5265587" />

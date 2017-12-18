@@ -36,7 +36,7 @@
     </xs:keyref>
     <xs:keyref name="nodeKeyref" refer="nodeKey">
       <xs:selector xpath="r:hosts/r:host/r:nodeRef" />
-      <xs:field xpath="." />
+      <xs:field xpath="@name" />
     </xs:keyref>
     <xs:keyref name="host1Keyref" refer="hostKey">
       <xs:selector xpath="r:connections/r:connection" />
@@ -67,7 +67,7 @@
     <xs:attribute name="name" type="nameType" use="required" />
     <xs:attribute name="functionalType" use="required">
       <xs:simpleType>
-        <xs:restriction base="xs:NMTOKEN">
+        <xs:restriction base="xs:string">
           <xs:enumeration value="CACHE" />
           <xs:enumeration value="DPI" />
           <xs:enumeration value="FW" />
@@ -128,12 +128,16 @@
   
   <xs:complexType name="hostType">
     <xs:sequence>
-		<xs:element name="nodeRef" type="xs:string" minOccurs="0" maxOccurs="unbounded" /> 
+		<xs:element name="nodeRef" type="nodeRefType" minOccurs="0" maxOccurs="unbounded" /> 
     </xs:sequence>
     <xs:attribute name="name" type="nameType" use="required" />
     <xs:attribute name="maxVnfs" type="nonNegativeInt" use="required" />
     <xs:attribute name="memory" type="nonNegativeInt" use="required" />
     <xs:attribute name="storage" type="nonNegativeInt" use="required" />
+  </xs:complexType>
+  
+  <xs:complexType name="nodeRefType">
+    <xs:attribute name="name" type="xs:string" use="required" />
   </xs:complexType>
   
   <xs:complexType name="connectionsType">
@@ -167,27 +171,4 @@
     </xs:restriction>
   </xs:simpleType>
   
-  <!-- nffgKey e linkKey possono essere implementati come unique -->
-  
 </xs:schema>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

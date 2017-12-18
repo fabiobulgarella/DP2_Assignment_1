@@ -8,13 +8,14 @@ import java.util.Set;
 import it.polito.dp2.NFV.HostReader;
 import it.polito.dp2.NFV.NodeReader;
 import it.polito.dp2.NFV.sol1.jaxb.HostType;
+import it.polito.dp2.NFV.sol1.jaxb.NodeRefType;
 
 public class MyHostReader extends MyNamedEntityReader implements HostReader
 {
 	private int availableMemory;
 	private int availableStorage;
 	private int maxVNFs;
-	private List<String> nodeNameList;
+	private List<NodeRefType> nodeRefList;
 	private HashMap<String, NodeReader> nodeMap;
 	
 	// Class constructor
@@ -24,7 +25,7 @@ public class MyHostReader extends MyNamedEntityReader implements HostReader
 		this.availableMemory = host.getMemory();
 		this.availableStorage = host.getStorage();
 		this.maxVNFs = host.getMaxVnfs();
-		this.nodeNameList = host.getNodeRef();
+		this.nodeRefList = host.getNodeRef();
 		this.nodeMap = nodeMap;
 	}
 
@@ -51,9 +52,9 @@ public class MyHostReader extends MyNamedEntityReader implements HostReader
 	{
 		Set<NodeReader> set = new HashSet<NodeReader>();
 		
-		for (String nodeName: nodeNameList)
+		for (NodeRefType nodeRef: nodeRefList)
 		{
-			NodeReader newNode_r = nodeMap.get(nodeName);
+			NodeReader newNode_r = nodeMap.get( nodeRef.getName() );
 			set.add(newNode_r);
 		}
 		

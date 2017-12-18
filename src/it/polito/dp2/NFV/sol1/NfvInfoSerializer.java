@@ -230,7 +230,9 @@ public class NfvInfoSerializer
 			
 			for (NodeReader nr: nodeSet)
 			{
-				host.getNodeRef().add( nr.getName() );
+				NodeRefType nodeRef = objFactory.createNodeRefType();
+				nodeRef.setName( nr.getName() );
+				host.getNodeRef().add(nodeRef);
 			}
 			
 			// Add generated host to hosts list
