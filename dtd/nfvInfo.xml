@@ -1,57 +1,232 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE note SYSTEM "nfvInfo.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nfv SYSTEM "nfvInfo.dtd">
 <nfv>
     <catalog>
-        <vnf name="Oe2gjUIjZxT8CWP" functionalType="VPN" reqMemory="1825309561" reqStorage="5265587" />
-        <vnf name="aass667" functionalType="DPI" reqMemory="1825309561" reqStorage="5265587" />
-        <vnf name="A12dsfsfsf" functionalType="FW" reqMemory="1825309561" reqStorage="5265587" />
-        <vnf name="Gttyhs" functionalType="FW" reqMemory="1825309561" reqStorage="5265587" />
+        <vnf name="MAILCLIENTt" functionalType="MAIL_CLIENT" reqMemory="57" reqStorage="490"/>
+        <vnf name="WEBCLIENTt" functionalType="WEB_CLIENT" reqMemory="44" reqStorage="620"/>
+        <vnf name="MAILSERVERt" functionalType="MAIL_SERVER" reqMemory="470" reqStorage="2200"/>
+        <vnf name="WEBSERVERt" functionalType="WEB_SERVER" reqMemory="310" reqStorage="2200"/>
+        <vnf name="VPNa" functionalType="VPN" reqMemory="17" reqStorage="80"/>
+        <vnf name="SPAMb" functionalType="SPAM" reqMemory="12" reqStorage="560"/>
+        <vnf name="NATc" functionalType="NAT" reqMemory="72" reqStorage="90"/>
     </catalog>
     <nffgs>
-        <nffg name="RL683mQC3RbX" deployTime="1994-02-23T23:55:38.53">
-            <node name="Vi" vnfRef="aass667" hostRef="B">
-            	<link name="tra4" dstNode="G02B3VY" minThroughput="1815826272.79223" maxLatency="316324341" />
+        <nffg name="Nffg3" deployTime="2016-09-28T08:06:20.000+02:00">
+            <node name="VPNa2Nffg3" vnfRef="VPNa" hostRef="H0">
+                <link name="Link9" dstNode="MAILSERVERt3Nffg3" minThroughput="0.0" maxLatency="0"/>
             </node>
-            <node name="G02B3VY" vnfRef="aass667" hostRef="Bu">
-            	<link name="hoh5F" dstNode="Vi" minThroughput="1815826272.79223" maxLatency="316324341" />
-            	<link name="cab3" dstNode="Vi" minThroughput="1815826272.79223" maxLatency="316324341" />
+            <node name="MAILSERVERt1Nffg3" vnfRef="MAILSERVERt" hostRef="H1">
+                <link name="Link4" dstNode="VPNa0Nffg3" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILSERVERt2Nffg3" vnfRef="MAILSERVERt" hostRef="H2">
+                <link name="Link6" dstNode="SPAMb1Nffg3" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="NATc3Nffg3" vnfRef="NATc" hostRef="H1"/>
+            <node name="MAILSERVERt0Nffg3" vnfRef="MAILSERVERt" hostRef="H0">
+                <link name="Link2" dstNode="VPNa0Nffg3" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILSERVERt3Nffg3" vnfRef="MAILSERVERt" hostRef="H0">
+                <link name="Link8" dstNode="VPNa2Nffg3" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa0Nffg3" vnfRef="VPNa" hostRef="H1">
+                <link name="Link1" dstNode="WEBCLIENTt0Nffg3" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link3" dstNode="MAILSERVERt0Nffg3" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link5" dstNode="MAILSERVERt1Nffg3" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="SPAMb1Nffg3" vnfRef="SPAMb" hostRef="H2">
+                <link name="Link7" dstNode="MAILSERVERt2Nffg3" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="WEBCLIENTt0Nffg3" vnfRef="WEBCLIENTt" hostRef="H2">
+                <link name="Link0" dstNode="VPNa0Nffg3" minThroughput="0.0" maxLatency="0"/>
             </node>
         </nffg>
-        <nffg name="Tgkkjds878" deployTime="1994-02-23T23:55:38.53">
-            <node name="Vi2" vnfRef="aass667" hostRef="Ba">
-            	<link name="tra4" dstNode="AG02B3VY" minThroughput="1815826272.79223" maxLatency="316324341" />
+        <nffg name="Nffg2" deployTime="2016-09-27T10:58:20.000+02:00">
+            <node name="SPAMb2Nffg2" vnfRef="SPAMb" hostRef="H2">
+                <link name="Link9" dstNode="MAILSERVERt0Nffg2" minThroughput="0.0" maxLatency="0"/>
             </node>
-            <node name="AG02B3VY" vnfRef="aass667" hostRef="Ba3">
-	            <link name="hoh5F" dstNode="Vi2" minThroughput="1815826272.79223" maxLatency="316324341" />
-	            <link name="cab3" dstNode="Vi2" minThroughput="1815826272.79223" maxLatency="316324341" />
+            <node name="NATc4Nffg2" vnfRef="NATc" hostRef="H1">
+                <link name="Link10" dstNode="MAILCLIENTt0Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="WEBCLIENTt2Nffg2" vnfRef="WEBCLIENTt" hostRef="H0">
+                <link name="Link4" dstNode="NATc1Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa3Nffg2" vnfRef="VPNa" hostRef="H0">
+                <link name="Link11" dstNode="MAILSERVERt0Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="WEBCLIENTt1Nffg2" vnfRef="WEBCLIENTt" hostRef="H2">
+                <link name="Link2" dstNode="VPNa0Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILCLIENTt0Nffg2" vnfRef="MAILCLIENTt" hostRef="H1">
+                <link name="Link0" dstNode="VPNa0Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa0Nffg2" vnfRef="VPNa" hostRef="H0">
+                <link name="Link1" dstNode="MAILCLIENTt0Nffg2" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link3" dstNode="WEBCLIENTt1Nffg2" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link7" dstNode="MAILCLIENTt3Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILCLIENTt3Nffg2" vnfRef="MAILCLIENTt" hostRef="H1">
+                <link name="Link12" dstNode="NATc1Nffg2" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link6" dstNode="VPNa0Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILSERVERt0Nffg2" vnfRef="MAILSERVERt" hostRef="H2">
+                <link name="Link8" dstNode="SPAMb2Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="NATc1Nffg2" vnfRef="NATc" hostRef="H1">
+                <link name="Link5" dstNode="WEBCLIENTt2Nffg2" minThroughput="0.0" maxLatency="0"/>
+            </node>
+        </nffg>
+        <nffg name="Nffg1" deployTime="2016-09-27T07:44:20.000+02:00">
+            <node name="MAILSERVERt3Nffg1" vnfRef="MAILSERVERt" hostRef="H0">
+                <link name="Link10" dstNode="SPAMb2Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILCLIENTt1Nffg1" vnfRef="MAILCLIENTt" hostRef="H2">
+                <link name="Link20" dstNode="NATc5Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link2" dstNode="NATc0Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="NATc0Nffg1" vnfRef="NATc" hostRef="H2">
+                <link name="Link15" dstNode="VPNa1Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link3" dstNode="MAILCLIENTt1Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILSERVERt2Nffg1" vnfRef="MAILSERVERt" hostRef="H2">
+                <link name="Link8" dstNode="VPNa3Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="WEBSERVERt4Nffg1" vnfRef="WEBSERVERt" hostRef="H1">
+                <link name="Link12" dstNode="VPNa1Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link21" dstNode="NATc5Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa1Nffg1" vnfRef="VPNa" hostRef="H0">
+                <link name="Link14" dstNode="MAILSERVERt2Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link13" dstNode="WEBSERVERt4Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa4Nffg1" vnfRef="VPNa" hostRef="H0">
+                <link name="Link16" dstNode="SPAMb6Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link19" dstNode="SPAMb2Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="SPAMb6Nffg1" vnfRef="SPAMb" hostRef="H2"/>
+            <node name="MAILSERVERt1Nffg1" vnfRef="MAILSERVERt" hostRef="H1">
+                <link name="Link18" dstNode="VPNa7Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link6" dstNode="SPAMb2Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa7Nffg1" vnfRef="VPNa" hostRef="H0"/>
+            <node name="WEBSERVERt0Nffg1" vnfRef="WEBSERVERt" hostRef="H0">
+                <link name="Link4" dstNode="NATc5Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="SPAMb2Nffg1" vnfRef="SPAMb" hostRef="H1">
+                <link name="Link11" dstNode="MAILSERVERt3Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link7" dstNode="MAILSERVERt1Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa3Nffg1" vnfRef="VPNa" hostRef="H2">
+                <link name="Link17" dstNode="WEBSERVERt4Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link9" dstNode="MAILSERVERt2Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILCLIENTt0Nffg1" vnfRef="MAILCLIENTt" hostRef="H1">
+                <link name="Link0" dstNode="NATc5Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="NATc5Nffg1" vnfRef="NATc" hostRef="H1">
+                <link name="Link1" dstNode="MAILCLIENTt0Nffg1" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link5" dstNode="WEBSERVERt0Nffg1" minThroughput="0.0" maxLatency="0"/>
+            </node>
+        </nffg>
+        <nffg name="Nffg0" deployTime="2016-09-28T10:05:20.000+02:00">
+            <node name="WEBSERVERt0Nffg0" vnfRef="WEBSERVERt" hostRef="H1">
+                <link name="Link8" dstNode="SPAMb2Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILCLIENTt2Nffg0" vnfRef="MAILCLIENTt" hostRef="H2">
+                <link name="Link12" dstNode="SPAMb2Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link14" dstNode="NATc0Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link4" dstNode="VPNa3Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="WEBCLIENTt3Nffg0" vnfRef="WEBCLIENTt" hostRef="H0">
+                <link name="Link6" dstNode="SPAMb2Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="NATc0Nffg0" vnfRef="NATc" hostRef="H0">
+                <link name="Link15" dstNode="MAILCLIENTt2Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link1" dstNode="MAILCLIENTt0Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link3" dstNode="WEBCLIENTt1Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="WEBSERVERt1Nffg0" vnfRef="WEBSERVERt" hostRef="H2">
+                <link name="Link10" dstNode="VPNa3Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="VPNa3Nffg0" vnfRef="VPNa" hostRef="H0">
+                <link name="Link11" dstNode="WEBSERVERt1Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link16" dstNode="WEBCLIENTt3Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link5" dstNode="MAILCLIENTt2Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="SPAMb2Nffg0" vnfRef="SPAMb" hostRef="H2">
+                <link name="Link7" dstNode="WEBCLIENTt3Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link9" dstNode="WEBSERVERt0Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="NATc1Nffg0" vnfRef="NATc" hostRef="H1"/>
+            <node name="WEBCLIENTt1Nffg0" vnfRef="WEBCLIENTt" hostRef="H1">
+                <link name="Link2" dstNode="NATc0Nffg0" minThroughput="0.0" maxLatency="0"/>
+            </node>
+            <node name="MAILCLIENTt0Nffg0" vnfRef="MAILCLIENTt" hostRef="H0">
+                <link name="Link0" dstNode="NATc0Nffg0" minThroughput="0.0" maxLatency="0"/>
+                <link name="Link13" dstNode="NATc1Nffg0" minThroughput="0.0" maxLatency="0"/>
             </node>
         </nffg>
     </nffgs>
     <hosts>
-        <host name="B" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
-            <nodeRef name="Vi" />
-            <nodeRef name="Vi2" />
+        <host name="H0" maxVnfs="19" memory="4400" storage="27000">
+            <nodeRef name="VPNa2Nffg3"/>
+            <nodeRef name="MAILSERVERt3Nffg1"/>
+            <nodeRef name="WEBCLIENTt3Nffg0"/>
+            <nodeRef name="NATc0Nffg0"/>
+            <nodeRef name="VPNa1Nffg1"/>
+            <nodeRef name="VPNa4Nffg1"/>
+            <nodeRef name="VPNa7Nffg1"/>
+            <nodeRef name="WEBSERVERt0Nffg1"/>
+            <nodeRef name="WEBCLIENTt2Nffg2"/>
+            <nodeRef name="VPNa3Nffg0"/>
+            <nodeRef name="MAILSERVERt0Nffg3"/>
+            <nodeRef name="VPNa3Nffg2"/>
+            <nodeRef name="MAILSERVERt3Nffg3"/>
+            <nodeRef name="VPNa0Nffg2"/>
+            <nodeRef name="MAILCLIENTt0Nffg0"/>
         </host>
-        <host name="Bu" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
-            <nodeRef name="AG02B3VY" />
-            <nodeRef name="AG02B3VY" />
+        <host name="H1" maxVnfs="17" memory="8800" storage="65000">
+            <nodeRef name="NATc4Nffg2"/>
+            <nodeRef name="NATc3Nffg3"/>
+            <nodeRef name="WEBSERVERt4Nffg1"/>
+            <nodeRef name="NATc1Nffg0"/>
+            <nodeRef name="WEBCLIENTt1Nffg0"/>
+            <nodeRef name="NATc1Nffg2"/>
+            <nodeRef name="MAILSERVERt1Nffg1"/>
+            <nodeRef name="WEBSERVERt0Nffg0"/>
+            <nodeRef name="MAILSERVERt1Nffg3"/>
+            <nodeRef name="SPAMb2Nffg1"/>
+            <nodeRef name="MAILCLIENTt0Nffg2"/>
+            <nodeRef name="MAILCLIENTt0Nffg1"/>
+            <nodeRef name="NATc5Nffg1"/>
+            <nodeRef name="VPNa0Nffg3"/>
+            <nodeRef name="MAILCLIENTt3Nffg2"/>
         </host>
-        <host name="Ba" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
-            <nodeRef name="G02B3VY" />
-            <nodeRef name="Vi" />
-        </host>
-        <host name="Ba3" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
-            <nodeRef name="Vi2" />
-            <nodeRef name="Vi" />
-        </host>
-        <host name="Ba4" maxVnfs="1836317562" memory="1166629081" storage="1496869117">
-            <nodeRef name="G02B3VY" />
-            <nodeRef name="AG02B3VY" />
+        <host name="H2" maxVnfs="19" memory="9200" storage="82000">
+            <nodeRef name="SPAMb2Nffg2"/>
+            <nodeRef name="MAILSERVERt2Nffg3"/>
+            <nodeRef name="MAILCLIENTt1Nffg1"/>
+            <nodeRef name="NATc0Nffg1"/>
+            <nodeRef name="MAILCLIENTt2Nffg0"/>
+            <nodeRef name="MAILSERVERt2Nffg1"/>
+            <nodeRef name="WEBSERVERt1Nffg0"/>
+            <nodeRef name="WEBCLIENTt1Nffg2"/>
+            <nodeRef name="SPAMb6Nffg1"/>
+            <nodeRef name="SPAMb1Nffg3"/>
+            <nodeRef name="SPAMb2Nffg0"/>
+            <nodeRef name="VPNa3Nffg1"/>
+            <nodeRef name="MAILSERVERt0Nffg2"/>
+            <nodeRef name="WEBCLIENTt0Nffg3"/>
         </host>
     </hosts>
     <connections>
-        <connection host1="Ba4" host2="Bu" throughput="612438714.03919" latency="5065791" />
-        <connection host1="Ba" host2="Ba4" throughput="612438714.03919" latency="5065791" />
-        <connection host1="Ba3" host2="Bu" throughput="612438714.03919" latency="5065791" />
+        <connection host1="H0" host2="H0" throughput="82.44" latency="0"/>
+        <connection host1="H0" host2="H1" throughput="26.04" latency="45"/>
+        <connection host1="H0" host2="H2" throughput="70.93" latency="69"/>
+        <connection host1="H1" host2="H0" throughput="7.28" latency="45"/>
+        <connection host1="H1" host2="H1" throughput="17.71" latency="0"/>
+        <connection host1="H1" host2="H2" throughput="73.09" latency="83"/>
+        <connection host1="H2" host2="H0" throughput="90.53" latency="69"/>
+        <connection host1="H2" host2="H1" throughput="19.57" latency="83"/>
+        <connection host1="H2" host2="H2" throughput="16.3" latency="0"/>
     </connections>
 </nfv>
