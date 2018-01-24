@@ -1,1 +1,29 @@
-File di Test.
+Distributed Programming II
+Assignment 1 - DTD and Schema Documentation
+Student: Fabio Bulgarella (s237094)
+Politecnico di Torino - A.Y. 2017/2018
+-------------------------------------------
+
+Both DTD and XML Schema was developed in order to validate with success the same xml file.
+Obviously schema has a way more complex and fine validation subsystem.
+
+The elements structure is pretty simple:
+nfv -> the root element;
+	catalog -> vnf
+	nffgs -> nffg -> node -> link
+	hosts -> host -> noderef (i.e. allocated nodes)
+	connections -> connection
+
+For optimization reasons I preferred to use almost everywhere attribute instead of element.
+Nevertheless, this choice didn't compromise readability of the xml document, actually
+a reader can evaluate much more information in a small space.
+
+About DTD, functionality like ID, IDREF and #REQUIRED keyword were exploited where possible.
+
+Some consideration about Schema:
+- Venetian Blind Design was used, maximizing reuse of components. So all except root element is a complexType.
+- Nffg, node, host and vnf elements are characterized by a name, which uniquely identifies them in the document.
+- Link element is characterized by a name, which uniquely identifies it in the respective nffg.
+- Keyref where used for those attribute that refers to unique elements.
+- A simpleType "nameType" was declared to constraint "name" attribute format (with pattern [A-Za-z][A-Za-z0-9]*).
+- Other simpleTypes "nonNegativeInt" and "nonNegativeFloat" was declared for attribute memory, storage, latency etc...
